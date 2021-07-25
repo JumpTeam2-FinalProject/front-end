@@ -1,0 +1,13 @@
+.Login {
+    z-index: -1;
+    background-image: url("../../assets/pattern.jpg");
+    height: 90vh;
+}
+
+.Form {
+    background-image: none;
+    z-index: 10;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+}

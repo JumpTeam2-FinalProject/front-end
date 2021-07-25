@@ -1,13 +1,16 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { IoRestaurantOutline } from "react-icons/io5";
 
 const NavBar = () => {
     return (
         <Navbar bg="light" variant="light">
             <Container>
                 <LinkContainer to="/">
-                    <Navbar.Brand>Restaurant Reviews</Navbar.Brand>
+                    <Navbar.Brand>
+                        Restaurant Reviews <IoRestaurantOutline />
+                    </Navbar.Brand>
                 </LinkContainer>
                 <Nav className="ml-auto">
                     <LinkContainer to="/">

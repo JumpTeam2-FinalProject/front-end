@@ -1,12 +1,25 @@
 import React from "react";
 import { Card, Container, Row } from "react-bootstrap";
+import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
     return (
         <Container>
-            <h2>Review</h2>
             <Row>
-                <Card style={{ width: "18rem" }}>
+                <Card className="shadow-sm p-3 mb-5 bg-white rounded">
+                    <Card.Header>
+                        <span
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                            }}
+                        >
+                            Best Food Ever!! &nbsp; <TiStarFullOutline />
+                            &nbsp;
+                            <TiStarFullOutline /> &nbsp;
+                            <TiStarHalfOutline />
+                        </span>
+                    </Card.Header>
                     <Card.Body>
                         <Card.Title>McDonald's</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
