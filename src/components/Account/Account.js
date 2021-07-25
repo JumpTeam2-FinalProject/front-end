@@ -16,7 +16,7 @@ const Account = () => {
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         type="email"
-                                        placeholder="jim@jim.com"
+                                        defaultValue="jim@jim.com"
                                     />
                                 </Form.Group>
 
@@ -27,7 +27,7 @@ const Account = () => {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         type="password"
-                                        placeholder="Password"
+                                        defaultValue="Password"
                                     />
                                 </Form.Group>
                             </Row>
@@ -37,7 +37,7 @@ const Account = () => {
                                 controlId="formGridAddress1"
                             >
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control placeholder="123 React Lane" />
+                                <Form.Control defaultValue="123 React Lane" />
                             </Form.Group>
 
                             <Form.Group
@@ -45,18 +45,18 @@ const Account = () => {
                                 controlId="formGridAddress2"
                             >
                                 <Form.Label>Address 2</Form.Label>
-                                <Form.Control placeholder="Unit A" />
+                                <Form.Control defaultValue="Unit A" />
                             </Form.Group>
 
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridCity">
                                     <Form.Label>City</Form.Label>
-                                    <Form.Control placeholder="JavaScript" />
+                                    <Form.Control defaultValue="JavaScript" />
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridState">
                                     <Form.Label>State</Form.Label>
-                                    <Form.Select defaultValue="Choose...">
+                                    <Form.Select defaultValue="WA">
                                         <option value="WA">WA</option>
                                         <option value="AL">AL</option>
                                         <option value="AK">AK</option>
@@ -114,7 +114,7 @@ const Account = () => {
 
                                 <Form.Group as={Col} controlId="formGridZip">
                                     <Form.Label>Zip</Form.Label>
-                                    <Form.Control placeholder="12345" />
+                                    <Form.Control defaultValue="12345" />
                                 </Form.Group>
                             </Row>
 

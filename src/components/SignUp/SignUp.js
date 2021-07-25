@@ -159,10 +159,7 @@ const SignUp = () => {
 
                                 <Form.Group as={Col} controlId="formGridState">
                                     <FloatingLabel label="State">
-                                        <Form.Select
-                                            defaultValue="Choose..."
-                                            required
-                                        >
+                                        <Form.Select required>
                                             <option value="">
                                                 Select state
                                             </option>
