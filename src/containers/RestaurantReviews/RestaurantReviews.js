@@ -15,7 +15,7 @@ const RestaurantReviews = () => {
             <Route path="/reviews" component={Reviews} />
             <Route path="/login" component={Login} />
             <Route path="/account" component={Account} />
-            <Route path="/reviewpage" component={ReviewPage} />
+            <Route path="/writereview" component={ReviewPage} />
             <Route path="/signup" component={SignUp} />
         </Switch>
     );
