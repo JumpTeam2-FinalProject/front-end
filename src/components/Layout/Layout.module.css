@@ -1,0 +1,5 @@
+.Content {
+    z-index: 0;
+    background-image: url("../../assets/background.jpg");
+    height: 90vh;
+}

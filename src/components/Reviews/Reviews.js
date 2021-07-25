@@ -4,7 +4,7 @@ import Review from "./Review/Review";
 
 const Reviews = () => {
     return (
-        <Container>
+        <Container className="mt-2">
             <h1>REVIEWS</h1>
             <Row>
                 <Col>

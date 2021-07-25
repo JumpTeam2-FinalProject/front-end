@@ -22,6 +22,12 @@ const NavBar = () => {
                     <LinkContainer to="/account">
                         <Nav.Link>Account</Nav.Link>
                     </LinkContainer>
+                    <LinkContainer to="/reviewpage">
+                        <Nav.Link>Leave Review</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/signup">
+                        <Nav.Link>Sign Up</Nav.Link>
+                    </LinkContainer>
                 </Nav>
             </Container>
         </Navbar>

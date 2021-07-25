@@ -5,6 +5,8 @@ import Reviews from "../../components/Reviews/Reviews";
 import Layout from "../../components/Layout/Layout";
 import Content from "../../components/Content/Content";
 import Account from "../../components/Account/Account";
+import ReviewPage from "../../components/ReviewPage/ReviewPage";
+import SignUp from "../../components/SignUp/SignUp";
 
 const RestaurantReviews = () => {
     let routes = (
@@ -13,6 +15,8 @@ const RestaurantReviews = () => {
             <Route path="/reviews" component={Reviews} />
             <Route path="/login" component={Login} />
             <Route path="/account" component={Account} />
+            <Route path="/reviewpage" component={ReviewPage} />
+            <Route path="/signup" component={SignUp} />
         </Switch>
     );
     return <Layout>{routes}</Layout>;
