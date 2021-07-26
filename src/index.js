@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -21,13 +22,13 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <Router>
-                <App />
-            </Router>
-        </Provider>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <Provider store={store}>
+        <Router>
+            <App />
+        </Router>
+    </Provider>,
+    // </React.StrictMode>,
     document.getElementById("root")
 );
 

@@ -8,6 +8,7 @@ import Account from "../../components/Account/Account";
 import ReviewPage from "../../components/ReviewPage/ReviewPage";
 import SignUp from "../../components/SignUp/SignUp";
 import Restaurants from "../../components/Restaurants/Restaurants";
+import RestaurantPage from "../../components/RestaurantPage/RestaurantPage";
 
 const RestaurantReviews = () => {
     let routes = (
@@ -19,6 +20,7 @@ const RestaurantReviews = () => {
             <Route path="/writereview" component={ReviewPage} />
             <Route path="/signup" component={SignUp} />
             <Route path="/restaurants" component={Restaurants} />
+            <Route path="/bk" component={RestaurantPage} />
             <Redirect to="/" />
         </Switch>
     );

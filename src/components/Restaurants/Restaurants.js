@@ -29,7 +29,6 @@ const Restaurants = () => {
         };
 
         setRestaurants([...restaurants, subway]);
-        console.log(restaurants);
     };
 
     const addMcdonalds = () => {
@@ -42,7 +41,6 @@ const Restaurants = () => {
             website: "https://www.mcdonalds.com/us/en-us.html",
         };
         setRestaurants([...restaurants, mcdonalds]);
-        console.log(restaurants);
     };
 
     return (

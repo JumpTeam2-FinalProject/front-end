@@ -1,7 +1,8 @@
 import React from "react";
 import { Container, Card, Form, Button, Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 
-const ReviewForm = () => {
+const ReviewForm = (props) => {
     return (
         <Container>
             <Row>
@@ -14,10 +15,12 @@ const ReviewForm = () => {
                             <Form.Group>
                                 <Form.Label>Restaurant</Form.Label>
                                 <Form.Select aria-label="Select restaurant">
-                                    <option>Select Restaurant</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="">Select Restaurant</option>
+                                    <option value="tacobell">Taco Bell</option>
+                                    <option value="mcdonalds">
+                                        McDonald's
+                                    </option>
+                                    <option value="subway">Subway</option>
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group
@@ -25,10 +28,22 @@ const ReviewForm = () => {
                                 controlId="exampleForm.ControlInput1"
                             >
                                 <Form.Label>Rating</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Rating"
-                                />
+                                <Form.Select
+                                    aria-label="Select rating"
+                                    required
+                                >
+                                    <option value="">Select Rating</option>
+                                    <option value="0.5">.5</option>
+                                    <option value="1">1</option>
+                                    <option value="1.5">1.5</option>
+                                    <option value="2">2</option>
+                                    <option value="2.5">2.5</option>
+                                    <option value="3">3</option>
+                                    <option value="3.5">3.5</option>
+                                    <option value="4">4</option>
+                                    <option value="4.5">4.5</option>
+                                    <option value="5">5</option>
+                                </Form.Select>
                             </Form.Group>
                             <Form.Group
                                 className="mb-3"
@@ -53,4 +68,12 @@ const ReviewForm = () => {
     );
 };
 
-export default ReviewForm;
+const mapStateToProps = (state) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
