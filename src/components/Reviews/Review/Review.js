@@ -8,26 +8,31 @@ const Review = (props) => {
             <Row>
                 <Card className="shadow-sm p-3 mb-5 bg-white rounded">
                     <Card.Header>
+                        <span>
+                            {props.user} - {props.date}
+                        </span>
                         <span
                             style={{
                                 display: "flex",
                                 alignItems: "center",
                             }}
                         >
-                            Best Food Ever!! &nbsp; <TiStarFullOutline />
-                            &nbsp;
+                            <em>"{props.review}"</em> &nbsp; &nbsp;
+                            <TiStarFullOutline /> &nbsp;
                             <TiStarFullOutline /> &nbsp;
                             <TiStarHalfOutline />
                         </span>
                     </Card.Header>
                     <Card.Body>
-                        <Card.Title>McDonald's</Card.Title>
+                        <Card.Title>{props.restaurant}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
-                            Fast Food
+                            {props.cuisine}
                         </Card.Subtitle>
-                        <Card.Text>American burger chain</Card.Text>
-                        <Card.Link href="#">Website</Card.Link>
-                        <Card.Link href="#">Location</Card.Link>
+                        <Card.Text>{props.description}</Card.Text>
+                        <Card.Text>Location: {props.location}</Card.Text>
+                        <Card.Link href={props.website} target="_blank">
+                            Website
+                        </Card.Link>
                     </Card.Body>
                 </Card>
             </Row>
