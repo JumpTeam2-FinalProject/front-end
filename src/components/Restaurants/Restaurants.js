@@ -16,7 +16,7 @@ const Restaurants = () => {
             website: "https://www.tacobell.com/",
         };
         setRestaurants([...restaurants, tacobell]);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const addSubway = () => {
         const subway = {
