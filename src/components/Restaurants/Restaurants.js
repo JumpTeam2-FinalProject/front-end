@@ -3,6 +3,7 @@ import Restaurant from "./Restaurant/Restaurant";
 import { Button, Container } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import { useHistory } from "react-router";
+import classes from "./Restaurants.module.css";
 
 const Restaurants = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -53,24 +54,28 @@ const Restaurants = () => {
     };
 
     return (
-        <Container className="mt-2">
-            <h2>All Restaurants</h2>
-            <Button className="mt-2" onClick={addMcdonalds}>
-                Add McDonalds
-            </Button>
-            <Button className="ms-2 mt-2" onClick={addSubway}>
-                Add Subway
-            </Button>
+        <div className={classes.Restaurants}>
             <br />
             <br />
-            {restaurants.map((rest) => (
-                <Restaurant
-                    key={uuid()}
-                    {...rest}
-                    onClick={sendToRestaurantPage}
-                />
-            ))}
-        </Container>
+            <Container>
+                <h1 className={classes.Header}>All Restaurants</h1>
+                <Button className="mt-2" onClick={addMcdonalds}>
+                    Add McDonalds
+                </Button>
+                <Button className="ms-2 mt-2" onClick={addSubway}>
+                    Add Subway
+                </Button>
+                <br />
+                <br />
+                {restaurants.map((rest) => (
+                    <Restaurant
+                        key={uuid()}
+                        {...rest}
+                        clicked={sendToRestaurantPage}
+                    />
+                ))}
+            </Container>
+        </div>
     );
 };
 

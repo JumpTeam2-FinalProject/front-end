@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Row } from "react-bootstrap";
+import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
@@ -25,6 +25,14 @@ const Review = (props) => {
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>{props.restaurant}</Card.Title>
+                        <Button
+                            variant="success"
+                            className="btn-sm mb-2"
+                            onClick={props.clicked}
+                        >
+                            Visit page
+                        </Button>
+                        <p>{props.number > 0 ? props.number : 0} reviews</p>
                         <Card.Subtitle className="mb-2 text-muted">
                             {props.cuisine}
                         </Card.Subtitle>

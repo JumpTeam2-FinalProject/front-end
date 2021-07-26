@@ -1,12 +1,12 @@
 import React from "react";
-import { useState } from "react";
-import { Card, Container, Image } from "react-bootstrap";
+// import { useState } from "react";
+import { Container } from "react-bootstrap";
 import bk from "../../assets/bk.jpg";
 import Review from "../Reviews/Review/Review";
 import "./RestaurantPage.module.css";
 
 const RestaurantPage = () => {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
 
     const info = {
         review: "Best food ever!!",

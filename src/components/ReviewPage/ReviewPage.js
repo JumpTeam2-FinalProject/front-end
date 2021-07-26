@@ -1,12 +1,14 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import ReviewForm from "../ReviewForm/ReviewForm";
+import classes from "./ReviewPage.module.css";
 
 const ReviewPage = () => {
     return (
-        <Container>
+        <div className={classes.ReviewPage}>
+            <br />
+            <br />
             <ReviewForm />
-        </Container>
+        </div>
     );
 };
 

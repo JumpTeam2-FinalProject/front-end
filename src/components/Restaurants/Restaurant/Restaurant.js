@@ -18,17 +18,19 @@ const Restaurant = (props) => {
                                 {Array(Math.floor(props.rating))
                                     .fill()
                                     .map((_, i) => (
-                                        <p key={i}>
+                                        <small key={i}>
                                             <TiStarFullOutline />
-                                        </p>
+                                        </small>
                                     ))}
-                                <p>
+                                <h6>
                                     {props.rating % 1 !== 0 ? (
                                         <TiStarHalfOutline />
                                     ) : null}
-                                </p>
+                                </h6>
                             </div>
-                            <p>{props.number > 0 ? props.number : 0} reviews</p>
+                            <h6>
+                                {props.number > 0 ? props.number : 0} reviews
+                            </h6>
                             <Button
                                 variant="success"
                                 className="btn-sm mb-2"

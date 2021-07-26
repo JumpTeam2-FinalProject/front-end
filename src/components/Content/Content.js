@@ -5,6 +5,7 @@ import classes from "./Content.module.css";
 // import { v4 as uuid } from "uuid";
 import { Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import Reviews from "../Reviews/Reviews";
 
 // const filterRestaurants = (rests, query) => {
 //     if (!query) {
@@ -100,6 +101,8 @@ const Content = (props) => {
                             </Link>
                         </Button>
                     </Form>
+                    <br />
+                    <Reviews />
                 </Col>
                 <Col xs={6} md={4}></Col>
             </Row>

@@ -1,0 +1,12 @@
+.Restaurants {
+    z-index: 0;
+    background-image: url("../../assets/background3.jpg");
+    height: 100%;
+    min-height: 100vh;
+    background-repeat: repeat;
+}
+
+.Header {
+    text-align: center;
+    font-size: 40px;
+}

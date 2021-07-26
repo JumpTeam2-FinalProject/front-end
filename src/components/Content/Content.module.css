@@ -1,5 +1,5 @@
 .Content {
-    z-index: 0;
+    z-index: 4;
     background-image: url("../../assets/background.jpg");
     height: 100vh;
     background-repeat: no-repeat;
