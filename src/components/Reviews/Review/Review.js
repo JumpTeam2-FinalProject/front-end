@@ -3,6 +3,7 @@ import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
+    let rating = props.rating > 0 ? props.rating : 0;
     return (
         <Container>
             <Row>
@@ -17,10 +18,28 @@ const Review = (props) => {
                                 alignItems: "center",
                             }}
                         >
-                            <em>"{props.review}"</em> &nbsp; &nbsp;
+                            <em>"{props.comment}"</em> &nbsp; &nbsp;
+                            {/* <TiStarFullOutline /> &nbsp;
                             <TiStarFullOutline /> &nbsp;
-                            <TiStarFullOutline /> &nbsp;
-                            <TiStarHalfOutline />
+                            <TiStarHalfOutline /> */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                }}
+                            >
+                                {Array(Math.floor(rating))
+                                    .fill()
+                                    .map((_, i) => (
+                                        <small key={i}>
+                                            <TiStarFullOutline />
+                                        </small>
+                                    ))}
+                                <small>
+                                    {rating % 1 !== 0 ? (
+                                        <TiStarHalfOutline />
+                                    ) : null}
+                                </small>
+                            </div>
                         </span>
                     </Card.Header>
                     <Card.Body>

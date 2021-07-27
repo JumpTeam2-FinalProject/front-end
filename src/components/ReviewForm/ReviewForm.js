@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const ReviewForm = (props) => {
     const [restaurant, setRestaurant] = useState("");
-    const [rating, setRating] = useState("");
+    const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
     const getRestaurant = (e) => {
@@ -33,6 +33,8 @@ const ReviewForm = (props) => {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Restaurant</Form.Label>
+
+                                    {/* TODO: Load restaurant data for select */}
                                     <Form.Select
                                         aria-label="Select restaurant"
                                         onChange={getRestaurant}
@@ -42,13 +44,13 @@ const ReviewForm = (props) => {
                                         <option value="">
                                             Select Restaurant
                                         </option>
-                                        <option value="tacobell">
+                                        <option value="Taco Bell">
                                             Taco Bell
                                         </option>
-                                        <option value="mcdonalds">
+                                        <option value="McDonald's">
                                             McDonald's
                                         </option>
-                                        <option value="subway">Subway</option>
+                                        <option value="Subway">Subway</option>
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group
