@@ -16,6 +16,7 @@ const Account = () => {
                                 Manage Account
                             </h2>
                             <br />
+                            {/* TODO: Grab user data from db and apply updates/changes */}
                             <Form>
                                 <Row className="mb-3">
                                     <Form.Group
@@ -38,6 +39,34 @@ const Account = () => {
                                             type="password"
                                             defaultValue="Password"
                                         />
+                                    </Form.Group>
+                                </Row>
+
+                                <Row className="mb-3">
+                                    <Form.Group
+                                        as={Col}
+                                        controlId="formGridFirstName"
+                                    >
+                                        <Form.Label controlId="formFirstName">
+                                            First Name
+                                        </Form.Label>
+                                        <Form.Control defaultValue="Jim" />
+                                        <Form.Control.Feedback type="invalid">
+                                            Please enter a first name.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+
+                                    <Form.Group
+                                        as={Col}
+                                        controlId="formGridLastName"
+                                    >
+                                        <Form.Label controlId="formLastName">
+                                            Last Name
+                                        </Form.Label>
+                                        <Form.Control defaultValue="Nguyen" />
+                                        <Form.Control.Feedback type="invalid">
+                                            Please enter a last name.
+                                        </Form.Control.Feedback>
                                     </Form.Group>
                                 </Row>
 
@@ -136,7 +165,7 @@ const Account = () => {
                                     </Form.Group>
                                 </Row>
 
-                                <Button variant="primary" type="submit">
+                                <Button variant="outline-primary" type="submit">
                                     Save Changes
                                 </Button>
                             </Form>

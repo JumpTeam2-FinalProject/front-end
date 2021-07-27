@@ -30,6 +30,8 @@ const ReviewForm = (props) => {
                                 Write Review
                             </h2>
                             <br />
+
+                            {/* TODO: Save review to  */}
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Restaurant</Form.Label>
@@ -89,7 +91,7 @@ const ReviewForm = (props) => {
                                     />
                                 </Form.Group>
                                 <Button
-                                    variant="primary"
+                                    variant="outline-primary"
                                     type="submit"
                                     onClick={(e) =>
                                         props.fetchReview(e, {

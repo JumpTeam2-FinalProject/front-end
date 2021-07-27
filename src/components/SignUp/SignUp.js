@@ -36,6 +36,7 @@ const SignUp = () => {
                                 Create Account
                             </h2>
                             <br />
+                            {/* TODO: Save user profile to store/db */}
                             <Form
                                 noValidate
                                 validated={validated}
@@ -250,7 +251,11 @@ const SignUp = () => {
                                     </Form.Group>
                                 </Row>
 
-                                <Button variant="primary" type="submit">
+                                <Button
+                                    className="mt-2"
+                                    variant="outline-primary"
+                                    type="submit"
+                                >
                                     Create Account
                                 </Button>
                             </Form>

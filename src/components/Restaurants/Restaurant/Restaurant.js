@@ -29,7 +29,10 @@ const Restaurant = (props) => {
                                 </h6>
                             </div>
                             <h6>
-                                {props.number > 0 ? props.number : 0} reviews
+                                <strong>
+                                    {props.number > 0 ? props.number : 0}
+                                </strong>{" "}
+                                reviews
                             </h6>
                             <Button
                                 variant="success"
@@ -39,11 +42,15 @@ const Restaurant = (props) => {
                                 Visit page
                             </Button>
                         </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
+                        <Card.Subtitle className="mb-1 text-muted">
                             {props.cuisine}
                         </Card.Subtitle>
-                        <Card.Text>{props.description}</Card.Text>
-                        <Card.Text>Location: {props.location}</Card.Text>
+                        <Card.Text className="mb-1">
+                            {props.description}
+                        </Card.Text>
+                        <Card.Text className="mb-1">
+                            Location: {props.location}
+                        </Card.Text>
                         <Card.Link href={props.website} target="_blank">
                             Website
                         </Card.Link>
