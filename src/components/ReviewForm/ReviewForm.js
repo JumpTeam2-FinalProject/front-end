@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Card, Form, Button, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 
 const ReviewForm = (props) => {
+    const [restaurant, setRestaurant] = useState("");
+    const [rating, setRating] = useState("");
+    const [comment, setComment] = useState("");
+
+    const getRestaurant = (e) => {
+        setRestaurant(e.target.value);
+    };
+
+    const getRating = (e) => {
+        setRating(e.target.value);
+    };
+
+    const getComment = (e) => {
+        setComment(e.target.value);
+    };
+
     return (
         <div>
             <Container>
@@ -17,7 +33,12 @@ const ReviewForm = (props) => {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Restaurant</Form.Label>
-                                    <Form.Select aria-label="Select restaurant">
+                                    <Form.Select
+                                        aria-label="Select restaurant"
+                                        onChange={getRestaurant}
+                                        required
+                                        defaultValue=""
+                                    >
                                         <option value="">
                                             Select Restaurant
                                         </option>
@@ -38,6 +59,7 @@ const ReviewForm = (props) => {
                                     <Form.Select
                                         aria-label="Select rating"
                                         required
+                                        onChange={getRating}
                                     >
                                         <option value="">Select Rating</option>
                                         <option value="0.5">.5</option>
@@ -61,9 +83,20 @@ const ReviewForm = (props) => {
                                         as="textarea"
                                         rows={4}
                                         placeholder="Write your review here..."
+                                        onChange={getComment}
                                     />
                                 </Form.Group>
-                                <Button variant="primary" type="submit">
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    onClick={(e) =>
+                                        props.fetchReview(e, {
+                                            restaurant,
+                                            rating,
+                                            comment,
+                                        })
+                                    }
+                                >
                                     Submit
                                 </Button>
                             </Form>

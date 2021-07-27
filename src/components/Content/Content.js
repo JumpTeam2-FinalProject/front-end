@@ -7,17 +7,6 @@ import { Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Reviews from "../Reviews/Reviews";
 
-// const filterRestaurants = (rests, query) => {
-//     if (!query) {
-//         return rests;
-//     }
-
-//     return rests.filter((rest) => {
-//         const restName = rest.name.toLowerCase();
-//         return restName.includes(query);
-//     });
-// };
-
 const compare = (a, b) => {
     if (a.text < b.text) {
         return -1;
@@ -31,10 +20,6 @@ const compare = (a, b) => {
 const Content = (props) => {
     const [restaurants, setRestaurants] = useState([]);
     const [restaurant, setRestaurant] = useState("");
-    // const { search } = window.location;
-    // const query = new URLSearchParams(search).get("s");
-    // const filteredRestaurants = filterRestaurants(restaurants, query);
-    // const [searchQuery, setSearchQuery] = useState(query || "");
 
     useEffect(() => {
         const restaurants = [
@@ -59,29 +44,12 @@ const Content = (props) => {
         setRestaurant(value);
     };
 
-    // const sendToRestaurantPage = (e, { value }) => {
-    //     e.preventDefault();
-    //     alert("here");
-    //     const link = "/" + value;
-    //     console.log(link);
-    // };
-
     return (
         <Container className={classes.Content} fluid>
             <Row>
                 <Col xs={6} md={4}></Col>
                 <Col xs={6} md={4}>
                     <Form className="d-flex mt-1 mr-2 mt-5 mw-0">
-                        {/* <FormControl
-                            type="search"
-                            placeholder="Search"
-                            className="mr-2 mt-5 mw-0"
-                            aria-label="Search"
-                            name="s"
-                            value={searchQuery}
-                            onInput={(e) => setSearchQuery(e.target.value)}
-                            searchable="Enter here..."
-                        /> */}
                         <Dropdown
                             placeholder="Find restaurant!"
                             fluid
@@ -101,7 +69,7 @@ const Content = (props) => {
                             </Link>
                         </Button>
                     </Form>
-                    <br />
+                    <h2 style={{ textAlign: "center" }}>Recent Reviews</h2>
                     <Reviews />
                 </Col>
                 <Col xs={6} md={4}></Col>

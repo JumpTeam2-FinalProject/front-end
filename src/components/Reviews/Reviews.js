@@ -22,16 +22,12 @@ const Reviews = (props) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        // <div className={classes.Reviews}>
-        <div>
-            <Container className="mt-2">
-                <h2 style={{ textAlign: "center" }}>Recent Reviews</h2>
-                <br />
-                <Review {...data} />
-                <Review {...data} />
-                <Review {...data} />
-            </Container>
-        </div>
+        <Container>
+            <br />
+            <Review {...data} />
+            <Review {...data} />
+            <Review {...data} />
+        </Container>
     );
 };
 

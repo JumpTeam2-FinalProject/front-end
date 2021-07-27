@@ -23,7 +23,6 @@ const RestaurantPage = () => {
         <Container className="mt-2">
             <h1>Burger King</h1>
             <img src={bk} alt="bk" />
-
             <h1>Reviews</h1>
             <Review {...info} />
         </Container>

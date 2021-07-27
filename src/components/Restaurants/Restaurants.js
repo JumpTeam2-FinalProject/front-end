@@ -58,7 +58,7 @@ const Restaurants = () => {
             <br />
             <br />
             <Container>
-                <h1 className={classes.Header}>All Restaurants</h1>
+                <h1 className={classes.Header}>Restaurants</h1>
                 <Button className="mt-2" onClick={addMcdonalds}>
                     Add McDonalds
                 </Button>

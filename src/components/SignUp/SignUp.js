@@ -22,6 +22,7 @@ const SignUp = () => {
 
         setValidated(true);
     };
+
     return (
         <div className={classes.SignUp}>
             <br />

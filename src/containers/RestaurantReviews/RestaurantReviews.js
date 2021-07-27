@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Login from "../../components/Login/Login";
-import Reviews from "../../components/Reviews/Reviews";
+import ReviewsPage from "../../components/ReviewsPage/ReviewsPage";
 import Layout from "../../components/Layout/Layout";
 import Content from "../../components/Content/Content";
 import Account from "../../components/Account/Account";
@@ -14,7 +14,7 @@ const RestaurantReviews = () => {
     let routes = (
         <Switch>
             <Route path="/" exact component={Content} />
-            <Route path="/reviews" component={Reviews} />
+            <Route path="/reviews" component={ReviewsPage} />
             <Route path="/login" component={Login} />
             <Route path="/account" component={Account} />
             <Route path="/writereview" component={ReviewPage} />

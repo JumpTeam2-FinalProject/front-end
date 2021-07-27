@@ -1,6 +1,6 @@
-.Restaurants {
-    z-index: 0;
-    background-image: url("../../assets/background3.jpg");
+.ReviewsPage {
+    z-index: -2;
+    background-image: url("../../assets/background4.jpg");
     height: 100%;
     min-height: 100vh;
     background-repeat: repeat;
