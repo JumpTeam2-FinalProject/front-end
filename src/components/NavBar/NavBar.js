@@ -9,7 +9,9 @@ const NavBar = () => {
             <Container>
                 <LinkContainer to="/">
                     <Navbar.Brand>
-                        Restaurant Reviews <IoRestaurantOutline />
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            Restaurant Reviews &nbsp; <IoRestaurantOutline />
+                        </div>
                     </Navbar.Brand>
                 </LinkContainer>
                 <Nav className="ml-auto">
