@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Container, Button, Col, Form, Row } from "react-bootstrap";
-import classes from "./Content.module.css";
-// import { v4 as uuid } from "uuid";
+import classes from "./Home.module.css";
 import { Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Reviews from "../Reviews/Reviews";
@@ -19,29 +18,29 @@ const compare = (a, b) => {
 
 const Content = (props) => {
     const [restaurants, setRestaurants] = useState([]);
-    const [restaurant, setRestaurant] = useState("");
+    const [restaurantId, setRestaurantId] = useState("");
 
     useEffect(() => {
+        // TODO: Get restaurants from db
         const restaurants = [
             { key: "sb", value: "sb", text: "Subway" },
             { key: "md", value: "md", text: "McDonald's" },
-            { key: "rr", value: "rr", text: "Red Robin" },
-            { key: "tb", value: "tb", text: "Taco Bell" },
-            { key: "cf", value: "cf", text: "Chick-Fil-A" },
-            { key: "wd", value: "wd", text: "Wendy's" },
-            { key: "og", value: "og", text: "Olive Garden" },
-            { key: "bk", value: "bk", text: "Burger King" },
-            { key: "kf", value: "kf", text: "KFC" },
-            { key: "dt", value: "dt", text: "Din Tai Fung" },
-            { key: "dn", value: "dn", text: "Denny's" },
-            { key: "pe", value: "pe", text: "Panda Express" },
+            { key: "tb", value: "3", text: "Taco Bell" },
+            { key: "bk", value: "4", text: "Burger King" },
+            // { key: "rr", value: "rr", text: "Red Robin" },
+            // { key: "cf", value: "cf", text: "Chick-Fil-A" },
+            // { key: "wd", value: "wd", text: "Wendy's" },
+            // { key: "og", value: "og", text: "Olive Garden" },
+            // { key: "kf", value: "kf", text: "KFC" },
+            // { key: "dt", value: "dt", text: "Din Tai Fung" },
+            // { key: "dn", value: "dn", text: "Denny's" },
+            // { key: "pe", value: "pe", text: "Panda Express" },
         ].sort(compare);
         setRestaurants(restaurants);
     }, []);
 
-    const getRestaurant = (e, { value }) => {
-        console.log(value);
-        setRestaurant(value);
+    const getRestaurantId = (event, { value }) => {
+        setRestaurantId(value);
     };
 
     return (
@@ -56,11 +55,11 @@ const Content = (props) => {
                             search
                             selection
                             options={restaurants}
-                            onChange={getRestaurant}
+                            onChange={getRestaurantId}
                         />
                         <Button variant="light" type="submit">
                             <Link
-                                to={"/" + restaurant}
+                                to={"/restaurant/" + restaurantId}
                                 style={{
                                     color: "black",
                                 }}

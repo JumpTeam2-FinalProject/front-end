@@ -36,7 +36,7 @@ const ReviewPage = () => {
             <br />
             <ReviewForm fetchReview={writeReview} />
             {created ? <Review {...review} /> : null}
-            {/* <Container>
+            <Container>
                 <Card>
                     <h1>List</h1>
                     <ul>
@@ -51,7 +51,7 @@ const ReviewPage = () => {
                         ))}
                     </ul>
                 </Card>
-            </Container> */}
+            </Container>
         </div>
     );
 };

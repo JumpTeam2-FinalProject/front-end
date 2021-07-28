@@ -1,4 +1,29 @@
-img {
-    height: 30vh;
-    width: 30vw;
+.RestaurantPage {
+    z-index: 0;
+    background-image: url("../../assets/background9.jpg");
+    height: 100%;
+    min-height: 100vh;
+    background-repeat: repeat;
+}
+
+.Header {
+    font-size: 80px;
+    color: white;
+    font-weight: 800;
+    -webkit-text-stroke: 1px black; /* width and color */
+}
+
+.Button {
+    margin-left: 2px;
+    margin-bottom: 20px;
+}
+
+.SubHeader {
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    -webkit-text-stroke: 1px black;
+    text-decoration: underline;
+    text-decoration-color: white;
 }

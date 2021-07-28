@@ -39,7 +39,7 @@ const Review = (props) => {
                                 alignItems: "center",
                             }}
                         >
-                            <em>"{props.comment}"</em> &nbsp; &nbsp;
+                            <em>"{props.review}"</em> &nbsp; &nbsp;
                         </span>
                     </Card.Header>
                     <Card.Body className="mb-0">

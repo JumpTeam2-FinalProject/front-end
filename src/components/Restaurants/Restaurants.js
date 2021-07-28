@@ -59,12 +59,12 @@ const Restaurants = () => {
             <br />
             <Container>
                 <h1 className={classes.Header}>Restaurants</h1>
-                {/* <Button className="mt-2" onClick={addMcdonalds}>
+                <Button className="mt-2" onClick={addMcdonalds}>
                     Add McDonalds
                 </Button>
                 <Button className="ms-2 mt-2" onClick={addSubway}>
                     Add Subway
-                </Button> */}
+                </Button>
                 <br />
                 <br />
                 {restaurants.map((rest) => (

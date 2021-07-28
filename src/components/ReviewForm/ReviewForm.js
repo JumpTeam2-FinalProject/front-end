@@ -31,7 +31,7 @@ const ReviewForm = (props) => {
                             </h2>
                             <br />
 
-                            {/* TODO: Save review to  */}
+                            {/* TODO: Save review to db */}
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Restaurant</Form.Label>
