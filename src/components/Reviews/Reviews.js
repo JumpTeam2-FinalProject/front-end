@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Review from "./Review/Review";
+import { v4 as uuid } from "uuid";
+import Spinner from "../UI/Spinner/Spinner";
 
 const Reviews = (props) => {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
     // const [reviews, setReviews] = useState([]);
 
     const info = {
@@ -25,16 +28,10 @@ const Reviews = (props) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchReview = () => {
-        // const myHeaders = new Headers();
-        // myHeaders.append(
-        //     "Authorization",
-        //     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjI3NTA3OTEwLCJpYXQiOjE2Mjc1MDA3MTB9.mJj_yOJLye_UYmYoodOVh9JYreCHZN-9dec3g3CnvY0"
-        // );
-        // myHeaders.append("Content-Type", "application/json");
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                setLoading(!loading);
                 setData(data);
             })
             .catch((err) => {
@@ -42,12 +39,18 @@ const Reviews = (props) => {
             });
     };
 
+    // const fetchUser = () => {
+    //     fetch("http://localhost:8080/api/user")
+    // }
+
     return (
         <Container>
             <br />
-            <Review {...data} />
-            <Review {...data} />
-            <Review {...data} />
+            {loading ? (
+                <Spinner />
+            ) : (
+                data.map((review) => <Review key={uuid()} {...review} />)
+            )}
         </Container>
     );
 };
