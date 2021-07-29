@@ -10,7 +10,7 @@ import SignUp from "../../components/SignUp/SignUp";
 import Restaurants from "../../components/Restaurants/Restaurants";
 import RestaurantPage from "../../components/RestaurantPage/RestaurantPage";
 
-const RestaurantReviews = (props) => {
+const RestaurantReviews = () => {
     let routes = (
         <Switch>
             <Route path="/" exact component={Home} />

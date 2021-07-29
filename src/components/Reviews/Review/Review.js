@@ -44,7 +44,7 @@ const Review = (props) => {
                     </Card.Header>
                     <Card.Body className="mb-0">
                         <Card.Title>
-                            {props.restaurant}
+                            {props.name}
                             <Card.Subtitle className="mt-1 mb-1 text-muted">
                                 {props.cuisine}
                             </Card.Subtitle>

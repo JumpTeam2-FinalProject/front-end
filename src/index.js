@@ -6,28 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import reviewsReducer from "./store/reducers/reviews";
-
-const composeEnhancers =
-    process.env.NODE_ENV === "development"
-        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-        : null || compose;
-
-const store = createStore(
-    reviewsReducer,
-    composeEnhancers(applyMiddleware(thunk))
-);
 
 ReactDOM.render(
     // <React.StrictMode>
-    <Provider store={store}>
-        <Router>
-            <App />
-        </Router>
-    </Provider>,
+    <Router>
+        <App />
+    </Router>,
     // </React.StrictMode>,
     document.getElementById("root")
 );

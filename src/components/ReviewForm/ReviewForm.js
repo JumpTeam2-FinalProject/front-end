@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Card, Form, Button, Col, Row } from "react-bootstrap";
-import { connect } from "react-redux";
 
 const ReviewForm = (props) => {
     const [restaurant, setRestaurant] = useState("");
@@ -113,12 +112,4 @@ const ReviewForm = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

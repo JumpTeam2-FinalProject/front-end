@@ -3,19 +3,26 @@ import { Container, Row, Card, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Restaurant = (props) => {
+    let length = 0;
+    if (props.reviews.length > 0) {
+        length = props.reviews.length;
+    }
+    // let length = props.reviews.length != null ? props.reviews.length : 0;
+    let rating =
+        props.reviews.reduce((sum, { rating }) => sum + rating, 0) / length;
     return (
         <Container>
             <Row>
                 <Card className="shadow-sm p-3 mb-4 bg-white rounded">
                     <Card.Body>
                         <Card.Title>
-                            {props.restaurant} &nbsp; &nbsp;
+                            {props.name} &nbsp; &nbsp;
                             <div
                                 style={{
                                     display: "flex",
                                 }}
                             >
-                                {Array(Math.floor(props.rating))
+                                {Array(Math.floor(rating))
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>
@@ -29,9 +36,7 @@ const Restaurant = (props) => {
                                 </h6>
                             </div>
                             <h6>
-                                <strong>
-                                    {props.number > 0 ? props.number : 0}
-                                </strong>{" "}
+                                <strong>{length > 0 ? length : 0}</strong>{" "}
                                 reviews
                             </h6>
                             <Button
@@ -49,11 +54,8 @@ const Restaurant = (props) => {
                             {props.description}
                         </Card.Text>
                         <Card.Text className="mb-1">
-                            Location: {props.location}
+                            Location: {props.address}
                         </Card.Text>
-                        <Card.Link href={props.website} target="_blank">
-                            Website
-                        </Card.Link>
                     </Card.Body>
                 </Card>
             </Row>

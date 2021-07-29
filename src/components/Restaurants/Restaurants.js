@@ -10,47 +10,22 @@ const Restaurants = () => {
     let history = useHistory();
 
     useEffect(() => {
-        const burgerking = {
-            restaurant: "Burger King",
-            cuisine: "Fast Food",
-            location: "USA",
-            rating: 4.5,
-            number: 178,
-            description: "American burger chain",
-            website: "https://www.bk.com/",
-        };
-        setRestaurants([...restaurants, burgerking]);
+        fetchRestaurants();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    const addSubway = () => {
-        const subway = {
-            restaurant: "Subway",
-            cuisine: "Fast Food",
-            location: "USA",
-            rating: 3,
-            number: 213,
-            description: "American sandwich chain",
-            website: "https://www.subway.com/en-us",
-        };
-
-        setRestaurants([...restaurants, subway]);
-    };
-
-    const addMcdonalds = () => {
-        const mcdonalds = {
-            restaurant: "McDonald's",
-            cuisine: "Fast Food",
-            location: "USA",
-            rating: 5.5,
-            number: 896,
-            description: "American burger chain",
-            website: "https://www.mcdonalds.com/us/en-us.html",
-        };
-        setRestaurants([...restaurants, mcdonalds]);
-    };
 
     const sendToRestaurantPage = () => {
         history.push("/bk");
+    };
+
+    const fetchRestaurants = () => {
+        fetch("http://localhost:8080/api/restaurant")
+            .then((response) => response.json())
+            .then((data) => {
+                setRestaurants(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
 
     return (
@@ -59,18 +34,12 @@ const Restaurants = () => {
             <br />
             <Container>
                 <h1 className={classes.Header}>Restaurants</h1>
-                <Button className="mt-2" onClick={addMcdonalds}>
-                    Add McDonalds
-                </Button>
-                <Button className="ms-2 mt-2" onClick={addSubway}>
-                    Add Subway
-                </Button>
                 <br />
                 <br />
-                {restaurants.map((rest) => (
+                {restaurants.map((restaurantInfo) => (
                     <Restaurant
                         key={uuid()}
-                        {...rest}
+                        {...restaurantInfo}
                         clicked={sendToRestaurantPage}
                     />
                 ))}

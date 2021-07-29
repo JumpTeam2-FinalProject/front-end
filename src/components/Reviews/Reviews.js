@@ -7,24 +7,12 @@ import Spinner from "../UI/Spinner/Spinner";
 const Reviews = (props) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [restaurant, setRestaurant] = useState([]);
     // const [reviews, setReviews] = useState([]);
-
-    const info = {
-        review: "Best food ever!!",
-        user: "Jim Nguyen",
-        date: "07-28-2021",
-        restaurant: "McDonald's",
-        cuisine: "Fast Food",
-        number: 123,
-        description: "American burger chain",
-        rating: 5,
-        website: "https://www.mcdonalds.com/us/en-us.html",
-        location: "USA",
-    };
 
     useEffect(() => {
         fetchReview();
-        // setData(info);
+        fetchRestaurant();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchReview = () => {
@@ -33,6 +21,17 @@ const Reviews = (props) => {
             .then((data) => {
                 setLoading(!loading);
                 setData(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    const fetchRestaurant = () => {
+        fetch("http://localhost:8080/api/restaurant")
+            .then((response) => response.json())
+            .then((data) => {
+                setRestaurant(data);
             })
             .catch((err) => {
                 console.error(err);
@@ -49,7 +48,9 @@ const Reviews = (props) => {
             {loading ? (
                 <Spinner />
             ) : (
-                data.map((review) => <Review key={uuid()} {...review} />)
+                data.map((review) => (
+                    <Review key={uuid()} {...review} {...restaurant} />
+                ))
             )}
         </Container>
     );

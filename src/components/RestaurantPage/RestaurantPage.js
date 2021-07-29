@@ -1,5 +1,5 @@
 import React from "react";
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import Restaurant from "../Restaurants/Restaurant/Restaurant";
 import Review from "../Reviews/Review/Review";
@@ -7,34 +7,23 @@ import classes from "./RestaurantPage.module.css";
 import { useHistory } from "react-router";
 
 const RestaurantPage = (props) => {
-    // const [data, setData] = useState([]);
+    const [restaurants, setRestaurants] = useState([]);
     let history = useHistory();
 
-    console.log("HELLO" + props.match.params.id);
+    useEffect(() => {
+        fetchRestaurants();
+    }, []);
 
-    // TODO: Get data from database
-    const info = {
-        comment: "Best food ever!!",
-        user: "Jim Nguyen",
-        date: "07/26/2021",
-        restaurant: "Burger King",
-        cuisine: "Fast Food",
-        rating: 3.5,
-        number: 178,
-        description: "American burger chain",
-        website: "https://www.mcdonalds.com/us/en-us.html",
-        location: "USA",
+    // TODO: Fetch for specific restaurant
+    const fetchRestaurants = () => {
+        fetch("http://localhost:8080/api/restaurant") // FIXME: Change url
+            .then((data) => {
+                setRestaurants(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
-
-    // const burgerking = {
-    //     restaurant: "Burger King",
-    //     cuisine: "Fast Food",
-    //     location: "USA",
-    //     rating: 4.5,
-    //     number: 178,
-    //     description: "American burger chain",
-    //     website: "https://www.bk.com/",
-    // };
 
     const sendToReviewForm = () => {
         history.push("/writereview");
@@ -55,9 +44,10 @@ const RestaurantPage = (props) => {
                         Leave a review!
                     </Button>
                 </span>
-                <Restaurant {...info} className="mt-5" />
+                <Restaurant {...restaurants} className="mt-5" />
                 <h1 className={classes.SubHeader}>Reviews</h1>
-                <Review {...info} />
+                {/* TODO: Add reviews for specific restaurant */}
+                {/* <Review {...info} /> */}
             </Container>
         </div>
     );
