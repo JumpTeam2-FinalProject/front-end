@@ -18,9 +18,10 @@ const Reviews = (props) => {
     const fetchReview = () => {
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
-            .then((data) => {
+            .then((reviews) => {
                 setLoading(!loading);
-                setData(data);
+                console.log(reviews);
+                storeReview(reviews);
             })
             .catch((err) => {
                 console.error(err);
@@ -38,9 +39,14 @@ const Reviews = (props) => {
             });
     };
 
-    // const fetchUser = () => {
-    //     fetch("http://localhost:8080/api/user")
-    // }
+    const storeReview = (reviews) => {
+        const reviewArray = [];
+        reviews.map(({ review, user_id, restaurant_id }) =>
+            reviewArray.push(review, user_id, restaurant_id)
+        );
+        console.log(reviewArray);
+        setData(reviewArray);
+    };
 
     return (
         <Container>
