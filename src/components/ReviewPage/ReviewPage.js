@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import ReviewForm from "../ReviewForm/ReviewForm";
-import { Card, Container } from "react-bootstrap";
 import classes from "./ReviewPage.module.css";
 import { v4 as uuid } from "uuid";
 import Review from "../Reviews/Review/Review";
@@ -36,22 +35,6 @@ const ReviewPage = () => {
             <br />
             <ReviewForm fetchReview={writeReview} />
             {created ? <Review {...review} /> : null}
-            <Container>
-                <Card>
-                    <h1>List</h1>
-                    <ul>
-                        {review.map((review) => (
-                            <li key={uuid()}>
-                                {review.restaurant +
-                                    " " +
-                                    review.rating +
-                                    " " +
-                                    review.comment}
-                            </li>
-                        ))}
-                    </ul>
-                </Card>
-            </Container>
         </div>
     );
 };

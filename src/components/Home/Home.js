@@ -22,25 +22,47 @@ const Content = (props) => {
 
     useEffect(() => {
         // TODO: Get restaurants from db
-        const restaurants = [
-            { key: "sb", value: "sb", text: "Subway" },
-            { key: "md", value: "md", text: "McDonald's" },
-            { key: "tb", value: "3", text: "Taco Bell" },
-            { key: "bk", value: "4", text: "Burger King" },
-            // { key: "rr", value: "rr", text: "Red Robin" },
-            // { key: "cf", value: "cf", text: "Chick-Fil-A" },
-            // { key: "wd", value: "wd", text: "Wendy's" },
-            // { key: "og", value: "og", text: "Olive Garden" },
-            // { key: "kf", value: "kf", text: "KFC" },
-            // { key: "dt", value: "dt", text: "Din Tai Fung" },
-            // { key: "dn", value: "dn", text: "Denny's" },
-            // { key: "pe", value: "pe", text: "Panda Express" },
-        ].sort(compare);
-        setRestaurants(restaurants);
-    }, []);
+        // const restaurants = [
+        //     { key: "sb", value: "sb", text: "Subway" },
+        //     { key: "md", value: "md", text: "McDonald's" },
+        //     { key: "tb", value: "3", text: "Taco Bell" },
+        //     { key: "bk", value: "4", text: "Burger King" },
+        //     { key: "rr", value: "rr", text: "Red Robin" },
+        //     { key: "cf", value: "cf", text: "Chick-Fil-A" },
+        //     { key: "wd", value: "wd", text: "Wendy's" },
+        //     { key: "og", value: "og", text: "Olive Garden" },
+        //     { key: "kf", value: "kf", text: "KFC" },
+        //     { key: "dt", value: "dt", text: "Din Tai Fung" },
+        //     { key: "dn", value: "dn", text: "Denny's" },
+        //     { key: "pe", value: "pe", text: "Panda Express" },
+        // ].sort(compare);
+        fetchRestaurants();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const getRestaurantId = (event, { value }) => {
         setRestaurantId(value);
+    };
+
+    const fetchRestaurants = () => {
+        fetch("http://localhost:8080/api/restaurant")
+            .then((response) => response.json())
+            .then((restaurants) => {
+                storeRestaurants(restaurants);
+            })
+            .catch((err) => console.error(err));
+    };
+
+    const storeRestaurants = (restaurants) => {
+        const restaurantsArray = [];
+        restaurants.map(({ text, restaurant_id }) =>
+            restaurantsArray.push({
+                text,
+                key: restaurant_id,
+                value: restaurant_id,
+            })
+        );
+        restaurantsArray.sort(compare);
+        setRestaurants(restaurantsArray);
     };
 
     return (

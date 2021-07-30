@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Restaurant from "./Restaurant/Restaurant";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import { useHistory } from "react-router";
 import classes from "./Restaurants.module.css";
 
-const Restaurants = () => {
+const Restaurants = (props) => {
     const [restaurants, setRestaurants] = useState([]);
     let history = useHistory();
 
@@ -14,13 +14,14 @@ const Restaurants = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const sendToRestaurantPage = () => {
-        history.push("/bk");
+        history.push("/" + props.match.params.id);
     };
 
     const fetchRestaurants = () => {
         fetch("http://localhost:8080/api/restaurant")
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 setRestaurants(data);
             })
             .catch((err) => {

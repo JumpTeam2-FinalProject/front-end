@@ -5,10 +5,9 @@ import { v4 as uuid } from "uuid";
 import Spinner from "../UI/Spinner/Spinner";
 
 const Reviews = (props) => {
-    const [data, setData] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [restaurant, setRestaurant] = useState([]);
-    // const [reviews, setReviews] = useState([]);
+    const [restaurants, setRestaurant] = useState([]);
 
     useEffect(() => {
         fetchReview();
@@ -20,32 +19,30 @@ const Reviews = (props) => {
             .then((response) => response.json())
             .then((reviews) => {
                 setLoading(!loading);
-                console.log(reviews);
-                storeReview(reviews);
+                shuffleArray(reviews);
+                setReviews(reviews);
             })
             .catch((err) => {
                 console.error(err);
             });
+    };
+
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     };
 
     const fetchRestaurant = () => {
         fetch("http://localhost:8080/api/restaurant")
             .then((response) => response.json())
-            .then((data) => {
-                setRestaurant(data);
+            .then((restaurants) => {
+                setRestaurant(restaurants);
             })
             .catch((err) => {
                 console.error(err);
             });
-    };
-
-    const storeReview = (reviews) => {
-        const reviewArray = [];
-        reviews.map(({ review, user_id, restaurant_id }) =>
-            reviewArray.push(review, user_id, restaurant_id)
-        );
-        console.log(reviewArray);
-        setData(reviewArray);
     };
 
     return (
@@ -54,9 +51,16 @@ const Reviews = (props) => {
             {loading ? (
                 <Spinner />
             ) : (
-                data.map((review) => (
-                    <Review key={uuid()} {...review} {...restaurant} />
-                ))
+                reviews
+                    .slice(0, 10)
+                    .map(({ review, restaurant, user }) => (
+                        <Review
+                            key={uuid()}
+                            {...review}
+                            {...restaurant}
+                            {...user}
+                        />
+                    ))
             )}
         </Container>
     );

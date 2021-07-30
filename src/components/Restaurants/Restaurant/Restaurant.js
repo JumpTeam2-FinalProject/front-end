@@ -3,26 +3,21 @@ import { Container, Row, Card, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Restaurant = (props) => {
-    let length = 0;
-    if (props.reviews.length > 0) {
-        length = props.reviews.length;
-    }
-    // let length = props.reviews.length != null ? props.reviews.length : 0;
-    let rating =
-        props.reviews.reduce((sum, { rating }) => sum + rating, 0) / length;
+    let length = props.total;
+    console.log("Restaurant Length: " + length);
     return (
         <Container>
             <Row>
                 <Card className="shadow-sm p-3 mb-4 bg-white rounded">
                     <Card.Body>
                         <Card.Title>
-                            {props.name} &nbsp; &nbsp;
+                            {props.text} &nbsp; &nbsp;
                             <div
                                 style={{
                                     display: "flex",
                                 }}
                             >
-                                {Array(Math.floor(rating))
+                                {Array(Math.floor(2))
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>

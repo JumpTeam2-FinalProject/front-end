@@ -3,7 +3,6 @@ import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
-    let rating = props.rating > 0 ? props.rating : 0;
     return (
         <Container>
             <Row>
@@ -11,7 +10,8 @@ const Review = (props) => {
                     <Card.Header className="ms-2 pt-3 pb-3">
                         <span>
                             <p>
-                                {props.user}&nbsp; - &nbsp;{props.date}
+                                {props.firstName} {props.lastName}&nbsp; -
+                                &nbsp;{props.date}
                             </p>
                         </span>{" "}
                         <div
@@ -20,7 +20,7 @@ const Review = (props) => {
                                 marginBottom: "5px",
                             }}
                         >
-                            {Array(Math.floor(rating))
+                            {Array(Math.floor(props.rating))
                                 .fill()
                                 .map((_, i) => (
                                     <small key={i}>
@@ -28,7 +28,7 @@ const Review = (props) => {
                                     </small>
                                 ))}
                             <small>
-                                {rating % 1 !== 0 ? (
+                                {props.rating % 1 !== 0 ? (
                                     <TiStarHalfOutline />
                                 ) : null}
                             </small>
@@ -44,7 +44,7 @@ const Review = (props) => {
                     </Card.Header>
                     <Card.Body className="mb-0">
                         <Card.Title>
-                            {props.name}
+                            {props.text}
                             <Card.Subtitle className="mt-1 mb-1 text-muted">
                                 {props.cuisine}
                             </Card.Subtitle>
@@ -57,11 +57,8 @@ const Review = (props) => {
                             Visit page
                         </Button>
                         <Card.Text className="mb-1">
-                            Location: {props.location}
+                            Location: {props.address}
                         </Card.Text>
-                        <Card.Link href={props.website} target="_blank">
-                            Website
-                        </Card.Link>
                     </Card.Body>
                 </Card>
             </Row>
