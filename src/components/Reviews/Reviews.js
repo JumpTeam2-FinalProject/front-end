@@ -7,11 +7,9 @@ import Spinner from "../UI/Spinner/Spinner";
 const Reviews = (props) => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [restaurants, setRestaurant] = useState([]);
 
     useEffect(() => {
         fetchReview();
-        fetchRestaurant();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchReview = () => {
@@ -32,17 +30,6 @@ const Reviews = (props) => {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
-    };
-
-    const fetchRestaurant = () => {
-        fetch("http://localhost:8080/api/restaurant")
-            .then((response) => response.json())
-            .then((restaurants) => {
-                setRestaurant(restaurants);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
     };
 
     return (

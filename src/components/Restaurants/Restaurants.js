@@ -41,6 +41,12 @@ const Restaurants = (props) => {
                     <Restaurant
                         key={uuid()}
                         {...restaurantInfo}
+                        // rating={
+                        //     restaurantInfo.reviews.reduce(
+                        //         (sum, { rating }) => sum + rating,
+                        //         0
+                        //     ) / restaurantInfo.reviews.length
+                        // }
                         clicked={sendToRestaurantPage}
                     />
                 ))}

@@ -3,6 +3,11 @@ import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
+    const first =
+        props.firstName.charAt(0).toUpperCase() + props.firstName.slice(1);
+    const last =
+        props.lastName.charAt(0).toUpperCase() + props.lastName.slice(1);
+    const review = props.review.charAt(0).toUpperCase() + props.review.slice(1);
     return (
         <Container>
             <Row>
@@ -10,8 +15,8 @@ const Review = (props) => {
                     <Card.Header className="ms-2 pt-3 pb-3">
                         <span>
                             <p>
-                                {props.firstName} {props.lastName}&nbsp; -
-                                &nbsp;{props.date}
+                                {first} {last}&nbsp; - &nbsp;
+                                {props.date}
                             </p>
                         </span>{" "}
                         <div
@@ -39,7 +44,7 @@ const Review = (props) => {
                                 alignItems: "center",
                             }}
                         >
-                            <em>"{props.review}"</em> &nbsp; &nbsp;
+                            <em>"{review}"</em> &nbsp; &nbsp;
                         </span>
                     </Card.Header>
                     <Card.Body className="mb-0">

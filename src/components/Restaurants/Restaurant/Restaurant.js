@@ -3,8 +3,8 @@ import { Container, Row, Card, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Restaurant = (props) => {
-    let length = props.total;
-    console.log("Restaurant Length: " + length);
+    let length = props.reviews.length;
+
     return (
         <Container>
             <Row>
@@ -17,7 +17,7 @@ const Restaurant = (props) => {
                                     display: "flex",
                                 }}
                             >
-                                {Array(Math.floor(2))
+                                {Array(Math.floor(2)) //FIXME: change 2 to props.review
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>
