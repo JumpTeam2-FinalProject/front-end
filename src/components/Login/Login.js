@@ -15,24 +15,25 @@ import classes from "./Login.module.css";
 
 const DEFAULT_PROBLEM_MESSAGE = "Your submission could not be processed.";
 
-const Login = ({ currentUser, setCurrentUser, handleLogin }) => {
+const Login = ({ handleLogin }) => {
 
-    // const [validated, setValidated] = useState(false);
     const [username, setUsername] = useState("");
+    const [isTouchedUsername, setIsTouchedUsername] = useState(false);
     const [password, setPassword] = useState("");
+    const [isTouchedPassword, setIsTouchedPassord] = useState("");
+    const [staySignedIn, setStaySignedIn] = useState(false);
     const [problemMessage, setProblemMessage] = useState(null);
+
+    const isUsernameInvalid = isTouchedUsername && !username;
+    const isPasswordInvalid = isTouchedPassword && !password;
     
     let history = useHistory();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const form = event.currentTarget;
-        // if (form.checkValidity() === false) {
-        //     event.stopPropagation();
-        // }
-        // setValidated(true);
+        const reqPath = '/api/authenticate' + (staySignedIn ? '/remember' : '');
         let response;
-        doFetch('/api/authenticate', 'POST', { username, password })
+        doFetch(reqPath, 'POST', { username, password })
             .then(__response => {
                 response = __response;
                 return response.json();
@@ -55,6 +56,13 @@ const Login = ({ currentUser, setCurrentUser, handleLogin }) => {
         history.push("/signup");
     };
 
+    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
+        (event) => {
+            valueSetter(event.target.value);
+            if (isTouchedSetter) isTouchedSetter(true);
+        }
+    );
+
     return (
         <div className={classes.Login}>
             <br />
@@ -69,59 +77,52 @@ const Login = ({ currentUser, setCurrentUser, handleLogin }) => {
                         dismiss={() => setProblemMessage(null)}
                         isDismissed={!problemMessage}
                     />
-                    <Form
-                        noValidate
-                        // validated={validated}
-                        onSubmit={handleSubmit}
-                    >
-                        <Form.Group
-                            className="mb-4"
-                            controlId="formGroupEmail"
-                        >
+                    <Form noValidate onSubmit={handleSubmit}>
+                        <Form.Group className="mb-4" controlId="formGroupEmail">
                             <FloatingLabel label="Email address">
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter email"
                                     required
                                     value={username}
-                                    onChange={e => setUsername(e.target.value)}
+                                    onChange={changeHandlerFactory(setUsername, setIsTouchedUsername)}
+                                    isInvalid={isUsernameInvalid}
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter the email associated with your account.
+                                </Form.Control.Feedback>
                             </FloatingLabel>
                         </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="formGroupPassword"
-                        >
+                        <Form.Group className="mb-3" controlId="formGroupPassword">
                             <FloatingLabel label="Password">
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
                                     required
                                     value={password}
-                                    onChange={e => setPassword(e.target.value)}
+                                    isInvalid={isPasswordInvalid}
+                                    onChange={changeHandlerFactory(setPassword, setIsTouchedPassord)}
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter your password.
+                                </Form.Control.Feedback>
                             </FloatingLabel>
                         </Form.Group>
-                        {/* NOTE: leaving this out for now b/c the functionality isn't there on the back end. it could probably be added later if we have time. (The jwt just needs to be set to not expire for a long period of time when it is created.)
-                            <Form.Group
-                            className="mb-3"
-                            id="formGridCheckbox"
-                        >
+                        <Form.Group className="mb-3" id="formGridCheckbox">
                             <Form.Check
                                 type="checkbox"
                                 label="Stay signed in"
+                                value={staySignedIn}
+                                onChange={e => setStaySignedIn(e.target.checked)}
                             />
-                        </Form.Group> */}
+                        </Form.Group>
                         <Button variant="outline-primary" type="submit">
                             Log In
                         </Button>
                         <br />
                         <br />
                         <p>Don't have an account? Sign up here!</p>
-                        <Button
-                            variant="outline-primary"
-                            onClick={sendToSignUpPage}
-                        >
+                        <Button variant="outline-primary" onClick={sendToSignUpPage}>
                             Sign Up
                         </Button>
                     </Form>

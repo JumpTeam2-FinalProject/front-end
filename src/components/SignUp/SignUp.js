@@ -8,19 +8,28 @@ import {
     Card,
     FloatingLabel,
 } from "react-bootstrap";
+import Alert from "../Alert/Alert";
 import classes from "./SignUp.module.css";
 
+const DEFAULT_PROBLEM_MESSAGE = "Your submission could not be processed.";
+
 const SignUp = () => {
-    const [validated, setValidated] = useState(false);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [addressLine1, setAddressLine1] = useState("");
+    const [addressLine2, setAddressLine2] = useState("");
+    const [city, setCity] = useState("");
+    const [stateAbbreviation, setStateAbbreviation] = useState("");
+    const [zip, setZip] = useState("");
+
+    const [problemMessage, setProblemMessage] = useState(null);
 
     const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        setValidated(true);
+        event.preventDefault();
+        // [addressLine1, addressLine2, city, stateAbbreviation, zip]
     };
 
     return (
@@ -29,19 +38,20 @@ const SignUp = () => {
             <br />
             <Container>
                 <Row>
-                    <Col xs={1} md={1} lg={1}></Col>
-                    <Col xs={10} md={10} lg={10}>
+                    <Col xs={0} md={0} lg={1}></Col>
+                    <Col xs={12} md={12} lg={10}>
                         <Card className="shadow-sm p-4 mb-5 bg-white rounded">
                             <h2 style={{ textAlign: "center" }}>
                                 Create Account
                             </h2>
                             <br />
-                            {/* TODO: Save user profile to store/db */}
-                            <Form
-                                noValidate
-                                validated={validated}
-                                onSubmit={handleSubmit}
-                            >
+                            <Alert
+                                title="Sign Up Failed"
+                                messages={[problemMessage, "Please try again."]}
+                                dismiss={() => setProblemMessage(null)}
+                                isDismissed={!problemMessage}
+                            />
+                            <Form onSubmit={handleSubmit}>
                                 <Row className="mb-3">
                                     <Form.Group
                                         as={Col}
@@ -176,7 +186,9 @@ const SignUp = () => {
                                         controlId="formGridState"
                                     >
                                         <FloatingLabel label="State">
-                                            <Form.Select required>
+                                            <Form.Select
+                                                required
+                                            >
                                                 <option value="">
                                                     Select state
                                                 </option>
@@ -245,7 +257,7 @@ const SignUp = () => {
                                                 required
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                                Please enter a zipcode.
+                                                Please enter a valid zipcode.
                                             </Form.Control.Feedback>
                                         </FloatingLabel>
                                     </Form.Group>
@@ -261,7 +273,7 @@ const SignUp = () => {
                             </Form>
                         </Card>
                     </Col>
-                    <Col xs={1} md={1} lg={1}></Col>
+                    <Col xs={0} md={0} lg={1}></Col>
                 </Row>
             </Container>
         </div>
