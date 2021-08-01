@@ -1,0 +1,13 @@
+.Content {
+    z-index: 4;
+    background-image: url("../../assets/background.jpg");
+    height: 100%;
+    min-height: 100vh;
+    background-repeat: repeat;
+}
+
+.Button {
+    margin-top: 10px;
+    z-index: 1;
+    position: relative;
+}

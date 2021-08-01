@@ -1,0 +1,12 @@
+.ReviewsPage {
+    z-index: -2;
+    background-image: url("../../assets/background4.jpg");
+    height: 100%;
+    min-height: 100vh;
+    background-repeat: repeat;
+}
+
+.Header {
+    text-align: center;
+    font-size: 35px;
+}
