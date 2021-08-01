@@ -6,7 +6,7 @@ import NavBar from "../NavBar/NavBar";
 const Layout = (props) => {
     return (
         <div>
-            <NavBar />
+            <NavBar {...props} />
             {/* <Container className={classes.Content} fluid>
                 {props.children}
             </Container> */}
