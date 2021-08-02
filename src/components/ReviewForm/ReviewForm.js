@@ -39,7 +39,7 @@ const ReviewForm = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(restaurant)
-        const reqPath = '/api/reviews/' + restaurant;
+        const reqPath = '/reviews/' + restaurant;
         const reqBody = {
             restaurant: { ...restaurant, reviews: undefined },
             rating: parseInt(rating),
