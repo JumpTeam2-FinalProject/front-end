@@ -8,29 +8,58 @@ import {
     Card,
     FloatingLabel,
 } from "react-bootstrap";
+import { doFetch, isJwtFailError } from "../../utility";
 import Alert from "../Alert/Alert";
 import classes from "./SignUp.module.css";
 
 const DEFAULT_PROBLEM_MESSAGE = "Your submission could not be processed.";
 
-const SignUp = () => {
+const SignUp = ({ handleLogin }) => {
 
     const [email, setEmail] = useState("");
+    const [isTouchedEmail, setIsTouchedEmail] = useState(false);
     const [password, setPassword] = useState("");
+    const [isTouchedPassword, setIsTouchedPassword] = useState(false);
     const [firstName, setFirstName] = useState("");
+    const [isTouchedFirstName, setIsTouchedFirstName] = useState(false);
     const [lastName, setLastName] = useState("");
-    const [addressLine1, setAddressLine1] = useState("");
-    const [addressLine2, setAddressLine2] = useState("");
-    const [city, setCity] = useState("");
-    const [stateAbbreviation, setStateAbbreviation] = useState("");
-    const [zip, setZip] = useState("");
-
+    const [isTouchedLastName, setIsTouchedLastName] = useState(false);
     const [problemMessage, setProblemMessage] = useState(null);
+
+    // regex source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript#answer-9204568
+    const isEmailInvalid = isTouchedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // (this syntax is a RegEx literal)
+    const isPasswordInvalid = isTouchedPassword && password.length < 4;
+    const isFirstNameInvalid = isTouchedFirstName && !firstName;
+    const isLastNameInvalid = isTouchedLastName && !lastName;
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // [addressLine1, addressLine2, city, stateAbbreviation, zip]
+        const reqBody = { username: email, password, firstName, lastName };
+        let response;
+        doFetch("/api/user", "POST", reqBody)
+            .then(__response => {
+                response = __response;
+                return response.json();
+            })
+            .then(resData => {
+                if (response.ok && resData && resData.jwt) {
+                    handleLogin(resData);
+                    return;
+                }
+                setProblemMessage((resData && resData.message) || DEFAULT_PROBLEM_MESSAGE);
+            })
+            .catch(err => {
+                console.log(err);
+                setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
+            });
     };
+
+    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
+        (event) => {
+            valueSetter(event.target.value);
+            if (isTouchedSetter) isTouchedSetter(true);
+        }
+    );
 
     return (
         <div className={classes.SignUp}>
@@ -51,7 +80,7 @@ const SignUp = () => {
                                 dismiss={() => setProblemMessage(null)}
                                 isDismissed={!problemMessage}
                             />
-                            <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={handleSubmit} noValidate>
                                 <Row className="mb-3">
                                     <Form.Group
                                         as={Col}
@@ -65,6 +94,8 @@ const SignUp = () => {
                                                 type="email"
                                                 placeholder="Current"
                                                 required
+                                                onChange={changeHandlerFactory(setEmail, setIsTouchedEmail)}
+                                                isInvalid={isEmailInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
                                                 Please enter a valid email.
@@ -84,9 +115,11 @@ const SignUp = () => {
                                                 type="password"
                                                 placeholder="Password"
                                                 required
+                                                onChange={changeHandlerFactory(setPassword, setIsTouchedPassword)}
+                                                isInvalid={isPasswordInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                                Please enter a password.
+                                                Must be at least 4 characters long.
                                             </Form.Control.Feedback>
                                         </FloatingLabel>
                                     </Form.Group>
@@ -103,6 +136,8 @@ const SignUp = () => {
                                             <Form.Control
                                                 placeholder="First Name"
                                                 required
+                                                onChange={changeHandlerFactory(setFirstName, setIsTouchedFirstName)}
+                                                isInvalid={isFirstNameInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
                                                 Please enter a first name.
@@ -121,6 +156,8 @@ const SignUp = () => {
                                             <Form.Control
                                                 placeholder="Last Name"
                                                 required
+                                                onChange={changeHandlerFactory(setLastName, setIsTouchedLastName)}
+                                                isInvalid={isLastNameInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
                                                 Please enter a last name.
@@ -129,6 +166,8 @@ const SignUp = () => {
                                     </Form.Group>
                                 </Row>
 
+
+{/* 
                                 <Form.Group
                                     className="mb-3"
                                     controlId="formGridAddress1"
@@ -262,6 +301,8 @@ const SignUp = () => {
                                         </FloatingLabel>
                                     </Form.Group>
                                 </Row>
+ */}
+
 
                                 <Button
                                     className="mt-2"
