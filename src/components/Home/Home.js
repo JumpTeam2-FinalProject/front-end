@@ -68,8 +68,8 @@ const Content = (props) => {
     return (
         <Container className={classes.Content} fluid>
             <Row>
-                <Col xs={6} md={4}></Col>
-                <Col xs={6} md={4}>
+                <Col xs={2} md={4}></Col>
+                <Col xs={8} md={4}>
                     <Form className="d-flex mt-1 mr-2 mt-5 mw-0">
                         <Dropdown
                             placeholder="Find restaurant!"
@@ -93,7 +93,7 @@ const Content = (props) => {
                     <h2 style={{ textAlign: "center" }}>Recent Reviews</h2>
                     <Reviews />
                 </Col>
-                <Col xs={6} md={4}></Col>
+                <Col xs={2} md={4}></Col>
             </Row>
         </Container>
     );

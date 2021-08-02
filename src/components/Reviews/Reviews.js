@@ -16,7 +16,7 @@ const Reviews = (props) => {
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
             .then((reviews) => {
-                setLoading(!loading);
+                setLoading(false);
                 shuffleArray(reviews);
                 setReviews(reviews);
             })
@@ -28,7 +28,7 @@ const Reviews = (props) => {
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [array[i], array[j]] = [array[j], array[i]]; // <- What does this do?
         }
     };
 

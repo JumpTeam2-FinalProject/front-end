@@ -3,6 +3,7 @@ import { Container, Card, Form, Button, Col, Row } from "react-bootstrap";
 
 const ReviewForm = (props) => {
     const [restaurant, setRestaurant] = useState("");
+    const [isTouchedRestaurant, setIsTouchedRestaurant] = useState(false);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
@@ -18,15 +19,22 @@ const ReviewForm = (props) => {
         setComment(e.target.value);
     };
 
+    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
+        (event) => {
+            valueSetter(event.target.value);
+            if (isTouchedSetter) isTouchedSetter(true);
+        }
+    );
+
     return (
         <div>
             <Container>
                 <Row>
-                    <Col xs={1} md={1} lg={1}></Col>
-                    <Col xs={10} md={10} lg={10}>
+                    <Col xs={0} sm={1} lg={2}></Col>
+                    <Col xs={12} sm={10} lg={8}>
                         <Card className="shadow-sm p-4 mb-5 bg-white rounded mt-2">
                             <h2 style={{ textAlign: "center" }}>
-                                Write Review
+                                Write Reviews
                             </h2>
                             <br />
 
@@ -105,7 +113,7 @@ const ReviewForm = (props) => {
                             </Form>
                         </Card>
                     </Col>
-                    <Col xs={1} md={1} lg={1}></Col>
+                    <Col xs={0} sm={1} lg={2}></Col>
                 </Row>
             </Container>
         </div>
