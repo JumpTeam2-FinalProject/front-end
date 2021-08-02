@@ -15,16 +15,62 @@ const inputIds = {
 const ReviewForm = (props) => {
     const [restaurant, setRestaurant] = useState("");
     const [isTouchedRestaurant, setIsTouchedRestaurant] = useState(false);
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState("");
     const [isTouchedRating, setIsTouchedRating] = useState(false);
     const [comment, setComment] = useState("");
     const [isTouchedComment, setIsTouchedComment] = useState(false);
     const [problemMessage, setProblemMessage] = useState(null);
     const [restaurants, setRestaurants] = useState([]);
+    const [hasSuccess, setHasSuccess] = useState(false);
 
     useEffect(() => {
         fetchRestaurants();
     }, []);
+
+    // const setRestaurantById = id => {
+    //     setRestaurant(parseInt(id));
+    //     for (const _restaurant of restaurants) {
+    //         if (_restaurant.restaurant_id.toString() === id.toString()) {
+    //             setRestaurant(_restaurant);
+    //         }
+    //     }
+    // };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(restaurant)
+        const reqPath = '/api/reviews/' + restaurant;
+        const reqBody = {
+            restaurant: { ...restaurant, reviews: undefined },
+            rating: parseInt(rating),
+            review: comment
+        };
+        let response;
+        doFetch(reqPath, 'POST', reqBody, true)
+            .then(__response => {
+                response = __response;
+                return response.json();
+            })
+            .then(resData => {
+                console.log(resData)
+                if (response.ok) {
+                    setHasSuccess(true);
+                    setRestaurant("");
+                    setRating("");
+                    setComment("");
+                    setIsTouchedRestaurant(false);
+                    setIsTouchedComment(false);
+                    setIsTouchedRating(false);
+                    setProblemMessage(null);
+                    return;
+                }
+                setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
+            })
+            .catch(err => {
+                console.log(err);
+                setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
+            });
+    };
 
     const fetchRestaurants = () => {
         doFetch("restaurants")
@@ -53,13 +99,24 @@ const ReviewForm = (props) => {
                                 Write Reviews
                             </h2>
                             <br />
-                            <Alert
-                                title="Login Failed"
-                                messages={[problemMessage, "Please try again."]}
-                                dismiss={() => setProblemMessage(null)}
-                                isDismissed={!problemMessage}
-                            />
-                            <Form>
+                            {hasSuccess && (
+                                <Alert
+                                    title="Review Posted"
+                                    messages={[ "Your review was posted successfully.", "Thank you for your feedback!"]}
+                                    dismiss={() => setHasSuccess(false)}
+                                    isDismissed={!hasSuccess}
+                                    theme="success"
+                                />
+                            )}
+                            {problemMessage && (
+                                <Alert
+                                    title="Review could not be posted."
+                                    messages={[ problemMessage, "Please try again." ]}
+                                    dismiss={() => setProblemMessage(null)}
+                                    isDismissed={!problemMessage}
+                                />
+                            )}
+                            <Form noValidate onSubmit={handleSubmit}>
                                 <Form.Group>
                                     <Form.Label htmlFor={inputIds.restaurant}>
                                         Restaurant
@@ -80,14 +137,11 @@ const ReviewForm = (props) => {
                                         <option value="">
                                             Select Restaurant
                                         </option>
-                                        {/* {restaurants.map(({ }))} */}
-                                        <option value="Taco Bell">
-                                            Taco Bell
-                                        </option>
-                                        <option value="McDonald's">
-                                            McDonald's
-                                        </option>
-                                        <option value="Subway">Subway</option>
+                                        {restaurants.map(({ restaurant_id, text }) => (
+                                            <option value={restaurant_id} key={restaurant_id}>
+                                                {text}
+                                            </option>
+                                        ))}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
                                         Please select a restaurant to review.
@@ -109,16 +163,16 @@ const ReviewForm = (props) => {
                                         )}
                                     >
                                         <option value="">Select Rating</option>
-                                        <option value="0.5">.5</option>
-                                        <option value="1">1</option>
-                                        <option value="1.5">1.5</option>
-                                        <option value="2">2</option>
-                                        <option value="2.5">2.5</option>
-                                        <option value="3">3</option>
-                                        <option value="3.5">3.5</option>
-                                        <option value="4">4</option>
-                                        <option value="4.5">4.5</option>
-                                        <option value="5">5</option>
+                                        {/* <option value="0.5">.5</option> */}
+                                        <option value={1}>1</option>
+                                        {/* <option value="1.5">1.5</option> */}
+                                        <option value={2}>2</option>
+                                        {/* <option value="2.5">2.5</option> */}
+                                        <option value={3}>3</option>
+                                        {/* <option value="3.5">3.5</option> */}
+                                        <option value={4}>4</option>
+                                        {/* <option value="4.5">4.5</option> */}
+                                        <option value={5}>5</option>
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
                                         Please select a rating for the
@@ -135,10 +189,15 @@ const ReviewForm = (props) => {
                                         rows={4}
                                         placeholder="Write your review here..."
                                         value={comment}
+<<<<<<< HEAD
                                         onChange={changeHandlerFactory(
                                             setComment,
                                             setIsTouchedComment
                                         )}
+=======
+                                        isInvalid={isTouchedComment && !comment}
+                                        onChange={changeHandlerFactory(setComment, setIsTouchedComment)}
+>>>>>>> david/3
                                     />
                                 </Form.Group>
                                 <Button variant="outline-primary" type="submit">

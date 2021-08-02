@@ -13,7 +13,6 @@ const RestaurantPage = (props) => {
     const [restaurant, setRestaurant] = useState([]);
     const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
-    const [user, setUser] = useState([]); // TODO: ADD USER DATA
     let history = useHistory();
 
     useEffect(() => {
@@ -24,7 +23,7 @@ const RestaurantPage = (props) => {
         doFetch("restaurant/" + props.match.params.id)
             .then((response) => response.json())
             .then((data) => {
-                setLoading(!loading);
+                setLoading(false);
                 setRestaurant(data);
                 setReviews(data.reviews);
             })
