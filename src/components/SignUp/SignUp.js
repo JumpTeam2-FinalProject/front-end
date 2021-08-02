@@ -15,7 +15,6 @@ import classes from "./SignUp.module.css";
 const DEFAULT_PROBLEM_MESSAGE = "Your submission could not be processed.";
 
 const SignUp = ({ handleLogin }) => {
-
     const [email, setEmail] = useState("");
     const [isTouchedEmail, setIsTouchedEmail] = useState(false);
     const [password, setPassword] = useState("");
@@ -27,7 +26,8 @@ const SignUp = ({ handleLogin }) => {
     const [problemMessage, setProblemMessage] = useState(null);
 
     // regex source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript#answer-9204568
-    const isEmailInvalid = isTouchedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // (this syntax is a RegEx literal)
+    const isEmailInvalid =
+        isTouchedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // (this syntax is a RegEx literal)
     const isPasswordInvalid = isTouchedPassword && password.length < 4;
     const isFirstNameInvalid = isTouchedFirstName && !firstName;
     const isLastNameInvalid = isTouchedLastName && !lastName;
@@ -36,30 +36,30 @@ const SignUp = ({ handleLogin }) => {
         event.preventDefault();
         const reqBody = { username: email, password, firstName, lastName };
         let response;
-        doFetch("/api/user", "POST", reqBody)
-            .then(__response => {
+        doFetch("user", "POST", reqBody)
+            .then((__response) => {
                 response = __response;
                 return response.json();
             })
-            .then(resData => {
+            .then((resData) => {
                 if (response.ok && resData && resData.jwt) {
                     handleLogin(resData);
                     return;
                 }
-                setProblemMessage((resData && resData.message) || DEFAULT_PROBLEM_MESSAGE);
+                setProblemMessage(
+                    (resData && resData.message) || DEFAULT_PROBLEM_MESSAGE
+                );
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err);
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             });
     };
 
-    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
-        (event) => {
-            valueSetter(event.target.value);
-            if (isTouchedSetter) isTouchedSetter(true);
-        }
-    );
+    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (event) => {
+        valueSetter(event.target.value);
+        if (isTouchedSetter) isTouchedSetter(true);
+    };
 
     return (
         <div className={classes.SignUp}>
@@ -94,7 +94,10 @@ const SignUp = ({ handleLogin }) => {
                                                 type="email"
                                                 placeholder="Current"
                                                 required
-                                                onChange={changeHandlerFactory(setEmail, setIsTouchedEmail)}
+                                                onChange={changeHandlerFactory(
+                                                    setEmail,
+                                                    setIsTouchedEmail
+                                                )}
                                                 isInvalid={isEmailInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
@@ -115,11 +118,15 @@ const SignUp = ({ handleLogin }) => {
                                                 type="password"
                                                 placeholder="Password"
                                                 required
-                                                onChange={changeHandlerFactory(setPassword, setIsTouchedPassword)}
+                                                onChange={changeHandlerFactory(
+                                                    setPassword,
+                                                    setIsTouchedPassword
+                                                )}
                                                 isInvalid={isPasswordInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                                Must be at least 4 characters long.
+                                                Must be at least 4 characters
+                                                long.
                                             </Form.Control.Feedback>
                                         </FloatingLabel>
                                     </Form.Group>
@@ -136,7 +143,10 @@ const SignUp = ({ handleLogin }) => {
                                             <Form.Control
                                                 placeholder="First Name"
                                                 required
-                                                onChange={changeHandlerFactory(setFirstName, setIsTouchedFirstName)}
+                                                onChange={changeHandlerFactory(
+                                                    setFirstName,
+                                                    setIsTouchedFirstName
+                                                )}
                                                 isInvalid={isFirstNameInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
@@ -156,7 +166,10 @@ const SignUp = ({ handleLogin }) => {
                                             <Form.Control
                                                 placeholder="Last Name"
                                                 required
-                                                onChange={changeHandlerFactory(setLastName, setIsTouchedLastName)}
+                                                onChange={changeHandlerFactory(
+                                                    setLastName,
+                                                    setIsTouchedLastName
+                                                )}
                                                 isInvalid={isLastNameInvalid}
                                             />
                                             <Form.Control.Feedback type="invalid">
@@ -166,8 +179,7 @@ const SignUp = ({ handleLogin }) => {
                                     </Form.Group>
                                 </Row>
 
-
-{/* 
+                                {/* 
                                 <Form.Group
                                     className="mb-3"
                                     controlId="formGridAddress1"
@@ -302,7 +314,6 @@ const SignUp = ({ handleLogin }) => {
                                     </Form.Group>
                                 </Row>
  */}
-
 
                                 <Button
                                     className="mt-2"

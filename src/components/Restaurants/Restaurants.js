@@ -5,9 +5,11 @@ import { v4 as uuid } from "uuid";
 import { useHistory } from "react-router";
 import classes from "./Restaurants.module.css";
 import { doFetch } from "../../utility";
+import Spinner from "../UI/Spinner/Spinner";
 
 const Restaurants = (props) => {
     const [restaurants, setRestaurants] = useState([]);
+    const [loading, setLoading] = useState(true);
     let history = useHistory();
 
     useEffect(() => {
@@ -15,15 +17,16 @@ const Restaurants = (props) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const sendToRestaurantPage = () => {
-        history.push("/" + props.match.params.id);
+        history.push("/restaurant/" + props.match.params.id);
     };
 
     const fetchRestaurants = () => {
-        doFetch("/api/restaurants")
+        doFetch("restaurants")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 setRestaurants(data);
+                setLoading(!loading);
             })
             .catch((err) => {
                 console.error(err);
@@ -38,19 +41,23 @@ const Restaurants = (props) => {
                 <h1 className={classes.Header}>Restaurants</h1>
                 <br />
                 <br />
-                {restaurants.map((restaurantInfo) => (
-                    <Restaurant
-                        key={uuid()}
-                        {...restaurantInfo}
-                        // rating={
-                        //     restaurantInfo.reviews.reduce(
-                        //         (sum, { rating }) => sum + rating,
-                        //         0
-                        //     ) / restaurantInfo.reviews.length
-                        // }
-                        clicked={sendToRestaurantPage}
-                    />
-                ))}
+                {loading ? (
+                    <Spinner />
+                ) : (
+                    restaurants.map((restaurantInfo) => (
+                        <Restaurant
+                            key={uuid()}
+                            {...restaurantInfo}
+                            // rating={
+                            //     restaurantInfo.reviews.reduce(
+                            //         (sum, { rating }) => sum + rating,
+                            //         0
+                            //     ) / restaurantInfo.reviews.length
+                            // }
+                            clicked={sendToRestaurantPage}
+                        />
+                    ))
+                )}
             </Container>
         </div>
     );

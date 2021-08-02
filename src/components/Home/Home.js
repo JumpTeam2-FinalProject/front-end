@@ -5,6 +5,7 @@ import classes from "./Home.module.css";
 import { Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Reviews from "../Reviews/Reviews";
+import { doFetch } from "../../utility";
 
 const compare = (a, b) => {
     if (a.text < b.text) {
@@ -29,7 +30,7 @@ const Content = (props) => {
     };
 
     const fetchRestaurants = () => {
-        fetch("http://localhost:8080/api/restaurants")
+        doFetch("restaurants")
             .then((response) => response.json())
             .then((restaurants) => {
                 storeRestaurants(restaurants);

@@ -3,19 +3,22 @@ import { Container } from "react-bootstrap";
 import Review from "./Review/Review";
 import { v4 as uuid } from "uuid";
 import Spinner from "../UI/Spinner/Spinner";
+import { doFetch } from "../../utility";
+import { useHistory } from "react-router";
 
 const Reviews = (props) => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
+    let history = useHistory();
 
     useEffect(() => {
         fetchReviews();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchReviews = () => {
-        fetch("http://localhost:8080/api/reviews")
+        doFetch("/reviews")
             .then((response) => response.json())
-            .then(__reviews => {
+            .then((__reviews) => {
                 setLoading(false);
                 shuffleArray(__reviews);
                 setReviews(__reviews);
@@ -32,7 +35,9 @@ const Reviews = (props) => {
         }
     };
 
-    console.log(reviews)
+    const clickHandler = ({ restaurant_id }) => {
+        history.push("/restaurant/" + restaurant_id);
+    };
 
     return (
         <Container>
@@ -48,6 +53,7 @@ const Reviews = (props) => {
                             {...review}
                             {...restaurant}
                             {...user}
+                            clicked={() => clickHandler(restaurant)}
                         />
                     ))
             )}

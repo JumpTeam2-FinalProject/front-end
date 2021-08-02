@@ -10,13 +10,12 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { isJwtFailError, doFetch } from "../../utility";
-import Alert from '../Alert/Alert';
+import Alert from "../Alert/Alert";
 import classes from "./Login.module.css";
 
 const DEFAULT_PROBLEM_MESSAGE = "Your submission could not be processed.";
 
 const Login = ({ handleLogin }) => {
-
     const [username, setUsername] = useState("");
     const [isTouchedUsername, setIsTouchedUsername] = useState(false);
     const [password, setPassword] = useState("");
@@ -26,26 +25,28 @@ const Login = ({ handleLogin }) => {
 
     const isUsernameInvalid = isTouchedUsername && !username;
     const isPasswordInvalid = isTouchedPassword && !password;
-    
+
     let history = useHistory();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const reqPath = '/api/authenticate' + (staySignedIn ? '/remember' : '');
+        const reqPath = "authenticate" + (staySignedIn ? "/remember" : "");
         let response;
-        doFetch(reqPath, 'POST', { username, password })
-            .then(__response => {
+        doFetch(reqPath, "POST", { username, password })
+            .then((__response) => {
                 response = __response;
                 return response.json();
             })
-            .then(resData => {
+            .then((resData) => {
                 if (response.ok && resData && resData.jwt) {
                     handleLogin(resData);
                     return;
                 }
-                setProblemMessage((resData && resData.message) || DEFAULT_PROBLEM_MESSAGE);
+                setProblemMessage(
+                    (resData && resData.message) || DEFAULT_PROBLEM_MESSAGE
+                );
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err);
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             });
@@ -55,24 +56,24 @@ const Login = ({ handleLogin }) => {
         history.push("/signup");
     };
 
-    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
-        (event) => {
-            valueSetter(event.target.value);
-            if (isTouchedSetter) isTouchedSetter(true);
-        }
-    );
+    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (event) => {
+        valueSetter(event.target.value);
+        if (isTouchedSetter) isTouchedSetter(true);
+    };
 
     return (
         <div className={classes.Login}>
             <br />
             <br />
             <Container>
-                <Card className={`shadow-sm p-4 mb-3 bg-white rounded ${classes.loginCard}`}>
+                <Card
+                    className={`shadow-sm p-4 mb-3 bg-white rounded ${classes.loginCard}`}
+                >
                     <h2 style={{ textAlign: "center" }}>Login</h2>
                     <br />
                     <Alert
                         title="Login Failed"
-                        messages={[ problemMessage, "Please try again." ]}
+                        messages={[problemMessage, "Please try again."]}
                         dismiss={() => setProblemMessage(null)}
                         isDismissed={!problemMessage}
                     />
@@ -84,15 +85,22 @@ const Login = ({ handleLogin }) => {
                                     placeholder="Enter email"
                                     required
                                     value={username}
-                                    onChange={changeHandlerFactory(setUsername, setIsTouchedUsername)}
+                                    onChange={changeHandlerFactory(
+                                        setUsername,
+                                        setIsTouchedUsername
+                                    )}
                                     isInvalid={isUsernameInvalid}
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Please enter the email associated with your account.
+                                    Please enter the email associated with your
+                                    account.
                                 </Form.Control.Feedback>
                             </FloatingLabel>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formGroupPassword">
+                        <Form.Group
+                            className="mb-3"
+                            controlId="formGroupPassword"
+                        >
                             <FloatingLabel label="Password">
                                 <Form.Control
                                     type="password"
@@ -100,7 +108,10 @@ const Login = ({ handleLogin }) => {
                                     required
                                     value={password}
                                     isInvalid={isPasswordInvalid}
-                                    onChange={changeHandlerFactory(setPassword, setIsTouchedPassord)}
+                                    onChange={changeHandlerFactory(
+                                        setPassword,
+                                        setIsTouchedPassord
+                                    )}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please enter your password.
@@ -112,7 +123,9 @@ const Login = ({ handleLogin }) => {
                                 type="checkbox"
                                 label="Stay signed in"
                                 value={staySignedIn}
-                                onChange={e => setStaySignedIn(e.target.checked)}
+                                onChange={(e) =>
+                                    setStaySignedIn(e.target.checked)
+                                }
                             />
                         </Form.Group>
                         <Button variant="outline-primary" type="submit">
@@ -121,7 +134,10 @@ const Login = ({ handleLogin }) => {
                         <br />
                         <br />
                         <p>Don't have an account? Sign up here!</p>
-                        <Button variant="outline-primary" onClick={sendToSignUpPage}>
+                        <Button
+                            variant="outline-primary"
+                            onClick={sendToSignUpPage}
+                        >
                             Sign Up
                         </Button>
                     </Form>

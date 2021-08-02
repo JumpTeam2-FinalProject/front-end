@@ -5,11 +5,11 @@ import Alert from "../Alert/Alert";
 
 const DEFAULT_PROBLEM_MESSAGE = "Your review could not be added.";
 
-const getInputId = inputName => `review-form-${inputName}-input`;
+const getInputId = (inputName) => `review-form-${inputName}-input`;
 const inputIds = {
-    restaurant: getInputId('restaurant'),
-    rating: getInputId('rating'),
-    comment: getInputId('comment')
+    restaurant: getInputId("restaurant"),
+    rating: getInputId("rating"),
+    comment: getInputId("comment"),
 };
 
 const ReviewForm = (props) => {
@@ -27,10 +27,9 @@ const ReviewForm = (props) => {
     }, []);
 
     const fetchRestaurants = () => {
-        doFetch("/api/restaurants")
+        doFetch("restaurants")
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setRestaurants(data);
             })
             .catch((err) => {
@@ -38,12 +37,10 @@ const ReviewForm = (props) => {
             });
     };
 
-    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
-        (event) => {
-            valueSetter(event.target.value);
-            if (isTouchedSetter) isTouchedSetter(true);
-        }
-    );
+    const changeHandlerFactory = (valueSetter, isTouchedSetter) => (event) => {
+        valueSetter(event.target.value);
+        if (isTouchedSetter) isTouchedSetter(true);
+    };
 
     return (
         <div>
@@ -58,20 +55,27 @@ const ReviewForm = (props) => {
                             <br />
                             <Alert
                                 title="Login Failed"
-                                messages={[ problemMessage, "Please try again." ]}
+                                messages={[problemMessage, "Please try again."]}
                                 dismiss={() => setProblemMessage(null)}
                                 isDismissed={!problemMessage}
                             />
                             <Form>
                                 <Form.Group>
-                                    <Form.Label htmlFor={inputIds.restaurant}>Restaurant</Form.Label>
+                                    <Form.Label htmlFor={inputIds.restaurant}>
+                                        Restaurant
+                                    </Form.Label>
                                     <Form.Select
                                         id={inputIds.restaurant}
                                         aria-label="Select restaurant"
                                         required
                                         value={restaurant}
-                                        isInvalid={isTouchedRestaurant && !restaurant}
-                                        onChange={changeHandlerFactory(setRestaurant, setIsTouchedRestaurant)}
+                                        isInvalid={
+                                            isTouchedRestaurant && !restaurant
+                                        }
+                                        onChange={changeHandlerFactory(
+                                            setRestaurant,
+                                            setIsTouchedRestaurant
+                                        )}
                                     >
                                         <option value="">
                                             Select Restaurant
@@ -90,14 +94,19 @@ const ReviewForm = (props) => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group className="mb-3 mt-3">
-                                    <Form.Label htmlFor={inputIds.rating}>Rating</Form.Label>
+                                    <Form.Label htmlFor={inputIds.rating}>
+                                        Rating
+                                    </Form.Label>
                                     <Form.Select
                                         id={inputIds.rating}
                                         aria-label="Select rating"
                                         required
                                         value={rating}
                                         isInvalid={isTouchedRating && !rating}
-                                        onChange={changeHandlerFactory(setRating, setIsTouchedRating)}
+                                        onChange={changeHandlerFactory(
+                                            setRating,
+                                            setIsTouchedRating
+                                        )}
                                     >
                                         <option value="">Select Rating</option>
                                         <option value="0.5">.5</option>
@@ -112,24 +121,27 @@ const ReviewForm = (props) => {
                                         <option value="5">5</option>
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
-                                        Please select a rating for the restaurant.
+                                        Please select a rating for the
+                                        restaurant.
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group className="mb-3">
-                                    <Form.Label htmlFor={inputIds.comment}>Your Review</Form.Label>
+                                    <Form.Label htmlFor={inputIds.comment}>
+                                        Your Review
+                                    </Form.Label>
                                     <Form.Control
                                         id={inputIds.comment}
                                         as="textarea"
                                         rows={4}
                                         placeholder="Write your review here..."
                                         value={comment}
-                                        onChange={changeHandlerFactory(setComment, setIsTouchedComment)}
+                                        onChange={changeHandlerFactory(
+                                            setComment,
+                                            setIsTouchedComment
+                                        )}
                                     />
                                 </Form.Group>
-                                <Button
-                                    variant="outline-primary"
-                                    type="submit"
-                                >
+                                <Button variant="outline-primary" type="submit">
                                     Submit
                                 </Button>
                             </Form>

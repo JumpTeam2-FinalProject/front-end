@@ -7,6 +7,7 @@ import classes from "./RestaurantPage.module.css";
 import { useHistory } from "react-router";
 import Spinner from "../UI/Spinner/Spinner";
 import { v4 as uuid } from "uuid";
+import { doFetch } from "../../utility";
 
 const RestaurantPage = (props) => {
     const [restaurant, setRestaurant] = useState([]);
@@ -20,7 +21,7 @@ const RestaurantPage = (props) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchRestaurants = () => {
-        fetch("http://localhost:8080/api/restaurant/" + props.match.params.id)
+        doFetch("restaurant/" + props.match.params.id)
             .then((response) => response.json())
             .then((data) => {
                 setLoading(!loading);
