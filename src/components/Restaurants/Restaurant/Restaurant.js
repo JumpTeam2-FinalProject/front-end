@@ -73,11 +73,20 @@ const Restaurant = (props) => {
                             </h6>
                             <Button
                                 variant="success"
-                                className="btn-sm mb-2"
+                                className="btn-sm mb-2 mr-3"
                                 onClick={handleClick}
                             >
                                 Visit page
                             </Button>
+                            {props.currentUser && props.currentUser.role === "ADMIN" && (
+                                <Button
+                                    variant="warning"
+                                    className="btn-sm mb-2"
+                                    onClick={() => history.push('/updaterestaurant/' + props.restaurant_id)}
+                                >
+                                    Edit
+                                </Button>
+                            )}
                         </Card.Title>
                         <Card.Subtitle className="mb-1 text-muted">
                             {props.cuisine}

@@ -9,6 +9,7 @@ import ReviewPage from "../../components/ReviewPage/ReviewPage";
 import SignUp from "../../components/SignUp/SignUp";
 import Restaurants from "../../components/Restaurants/Restaurants";
 import RestaurantPage from "../../components/RestaurantPage/RestaurantPage";
+import RestaurantForm from "../../components/RestaurantForm/RestaurantForm";
 import { saveToken } from "../../utility/jwt";
 import { registerRedirectToLogin } from "../../utility";
 
@@ -66,6 +67,10 @@ const RestaurantReviews = () => {
             <Route
                 path="/restaurant/:id"
                 render={routeRenderFactory(RestaurantPage)}
+            />
+            <Route
+                path="/updaterestaurant/:id"
+                render={routeRenderFactory(RestaurantForm)}
             />
             <Redirect to="/" />
         </Switch>

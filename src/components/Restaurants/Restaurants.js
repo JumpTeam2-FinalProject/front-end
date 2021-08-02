@@ -54,6 +54,7 @@ const Restaurants = (props) => {
                             //         0
                             //     ) / restaurantInfo.reviews.length
                             // }
+                            currentUser={props.currentUser}
                             clicked={sendToRestaurantPage}
                         />
                     ))
