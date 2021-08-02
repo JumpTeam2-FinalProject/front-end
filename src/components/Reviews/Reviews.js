@@ -9,16 +9,16 @@ const Reviews = (props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchReview();
+        fetchReviews();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const fetchReview = () => {
+    const fetchReviews = () => {
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
-            .then((reviews) => {
+            .then(__reviews => {
                 setLoading(false);
-                shuffleArray(reviews);
-                setReviews(reviews);
+                shuffleArray(__reviews);
+                setReviews(__reviews);
             })
             .catch((err) => {
                 console.error(err);
@@ -28,9 +28,11 @@ const Reviews = (props) => {
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // <- What does this do?
+            [array[i], array[j]] = [array[j], array[i]];
         }
     };
+
+    console.log(reviews)
 
     return (
         <Container>
@@ -42,7 +44,7 @@ const Reviews = (props) => {
                     .slice(0, 10)
                     .map(({ review, restaurant, user }) => (
                         <Review
-                            key={uuid()}
+                            key={review.review_id}
                             {...review}
                             {...restaurant}
                             {...user}

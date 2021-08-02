@@ -21,21 +21,6 @@ const Content = (props) => {
     const [restaurantId, setRestaurantId] = useState("");
 
     useEffect(() => {
-        // TODO: Get restaurants from db
-        // const restaurants = [
-        //     { key: "sb", value: "sb", text: "Subway" },
-        //     { key: "md", value: "md", text: "McDonald's" },
-        //     { key: "tb", value: "3", text: "Taco Bell" },
-        //     { key: "bk", value: "4", text: "Burger King" },
-        //     { key: "rr", value: "rr", text: "Red Robin" },
-        //     { key: "cf", value: "cf", text: "Chick-Fil-A" },
-        //     { key: "wd", value: "wd", text: "Wendy's" },
-        //     { key: "og", value: "og", text: "Olive Garden" },
-        //     { key: "kf", value: "kf", text: "KFC" },
-        //     { key: "dt", value: "dt", text: "Din Tai Fung" },
-        //     { key: "dn", value: "dn", text: "Denny's" },
-        //     { key: "pe", value: "pe", text: "Panda Express" },
-        // ].sort(compare);
         fetchRestaurants();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -44,7 +29,7 @@ const Content = (props) => {
     };
 
     const fetchRestaurants = () => {
-        fetch("http://localhost:8080/api/restaurant")
+        fetch("http://localhost:8080/api/restaurants")
             .then((response) => response.json())
             .then((restaurants) => {
                 storeRestaurants(restaurants);
@@ -68,8 +53,8 @@ const Content = (props) => {
     return (
         <Container className={classes.Content} fluid>
             <Row>
-                <Col xs={2} md={4}></Col>
-                <Col xs={8} md={4}>
+                <Col xs={0} sm={1} md={2} lg={3} />
+                <Col xs={12} sm={10} md={8} lg={6}>
                     <Form className="d-flex mt-1 mr-2 mt-5 mw-0">
                         <Dropdown
                             placeholder="Find restaurant!"
@@ -93,7 +78,7 @@ const Content = (props) => {
                     <h2 style={{ textAlign: "center" }}>Recent Reviews</h2>
                     <Reviews />
                 </Col>
-                <Col xs={2} md={4}></Col>
+                <Col xs={0} sm={1} md={2} lg={3} />
             </Row>
         </Container>
     );
