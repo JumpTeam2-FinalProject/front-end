@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Card, Form, Button, Col, Row } from "react-bootstrap";
+import { doFetch } from "../../utility";
 import Alert from "../Alert/Alert";
 
 const DEFAULT_PROBLEM_MESSAGE = "Your review could not be added.";
@@ -19,6 +20,23 @@ const ReviewForm = (props) => {
     const [comment, setComment] = useState("");
     const [isTouchedComment, setIsTouchedComment] = useState(false);
     const [problemMessage, setProblemMessage] = useState(null);
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+        fetchRestaurants();
+    }, []);
+
+    const fetchRestaurants = () => {
+        doFetch("/api/restaurants")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setRestaurants(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
     const changeHandlerFactory = (valueSetter, isTouchedSetter) => (
         (event) => {
@@ -58,6 +76,7 @@ const ReviewForm = (props) => {
                                         <option value="">
                                             Select Restaurant
                                         </option>
+                                        {/* {restaurants.map(({ }))} */}
                                         <option value="Taco Bell">
                                             Taco Bell
                                         </option>
@@ -110,13 +129,6 @@ const ReviewForm = (props) => {
                                 <Button
                                     variant="outline-primary"
                                     type="submit"
-                                    onClick={(e) =>
-                                        props.fetchReview(e, {
-                                            restaurant,
-                                            rating,
-                                            comment,
-                                        })
-                                    }
                                 >
                                     Submit
                                 </Button>

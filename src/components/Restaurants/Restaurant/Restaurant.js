@@ -20,6 +20,7 @@ const Restaurant = (props) => {
 
         for (let i of props.reviews) {
             if (i !== undefined) {
+                console.log(i)
                 review_count = review_count + 1;
                 avg_review = avg_review + i.review.rating
             }
@@ -30,6 +31,8 @@ const Restaurant = (props) => {
         setReviewCount(review_count);
         setAverageReview(avg_review);
     }
+
+    const floorAverageReview = Math.floor(averageReview) || 0;
 
     return (
         <Container>
@@ -43,7 +46,7 @@ const Restaurant = (props) => {
                                     display: "flex",
                                 }}
                             >
-                                {Array(Math.floor(averageReview)) //FIXME: change 2 to props.review
+                                {Array(floorAverageReview) //FIXME: change 2 to props.review
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>
@@ -51,7 +54,7 @@ const Restaurant = (props) => {
                                         </small>
                                     ))}
                                 <h6>
-                                    {props.rating % 1 !== 0 ? (
+                                    {(averageReview - floorAverageReview > 0.5)  ? (
                                         <TiStarHalfOutline />
                                     ) : null}
                                 </h6>
