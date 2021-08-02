@@ -24,7 +24,6 @@ const Restaurants = (props) => {
         doFetch("restaurants")
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setRestaurants(data);
                 setLoading(!loading);
             })

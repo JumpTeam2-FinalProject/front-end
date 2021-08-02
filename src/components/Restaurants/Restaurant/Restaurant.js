@@ -4,11 +4,9 @@ import { Container, Row, Card, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Restaurant = (props) => {
-
     const [averageReview, setAverageReview] = useState(0);
     const [reviewCount, setReviewCount] = useState(0);
 
-    
     useEffect(() => {
         averageRating();
     });
@@ -32,15 +30,12 @@ const Restaurant = (props) => {
         setAverageReview(avg_review);
     }
 
-
     const history = useHistory();
 
     function handleClick(e) {
         e.preventDefault();
         history.push(/restaurant/ + props.restaurant_id);
     }
-
-    console.log(props);
 
     return (
         <Container>
@@ -54,7 +49,7 @@ const Restaurant = (props) => {
                                     display: "flex",
                                 }}
                             >
-                                {Array(Math.floor(averageReview)) //FIXME: change 2 to props.review
+                                {Array(Math.floor(averageReview))
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>
@@ -68,8 +63,7 @@ const Restaurant = (props) => {
                                 </h6>
                             </div>
                             <h6>
-                                <strong>{reviewCount}</strong>{" "}
-                                reviews
+                                <strong>{reviewCount}</strong> reviews
                             </h6>
                             <Button
                                 variant="success"
