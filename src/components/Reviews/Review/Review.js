@@ -3,11 +3,31 @@ import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
-    const first =
-        props.firstName.charAt(0).toUpperCase() + props.firstName.slice(1);
-    const last =
-        props.lastName.charAt(0).toUpperCase() + props.lastName.slice(1);
-    const review = props.review.charAt(0).toUpperCase() + props.review.slice(1);
+    var first = null;
+    var last = null;
+    var date = null;
+    var rating = null;
+    var review = null;
+
+    if (props.clicked != null) {
+        first =
+            props.firstName.charAt(0).toUpperCase() + props.firstName.slice(1);
+        last = props.lastName.charAt(0).toUpperCase() + props.lastName.slice(1);
+        date = props.date;
+        rating = props.rating;
+        review = props.review;
+    } else {
+        first =
+            props.user.firstName.charAt(0).toUpperCase() +
+            props.user.firstName.slice(1);
+        last =
+            props.user.lastName.charAt(0).toUpperCase() +
+            props.user.lastName.slice(1);
+        date = props.review.date;
+        rating = props.review.rating;
+        review = props.review.review;
+    }
+
     return (
         <Container>
             <Row>
@@ -16,7 +36,7 @@ const Review = (props) => {
                         <span>
                             <p>
                                 {first} {last}&nbsp; - &nbsp;
-                                {props.date}
+                                {date}
                             </p>
                         </span>{" "}
                         <div
@@ -25,7 +45,7 @@ const Review = (props) => {
                                 marginBottom: "5px",
                             }}
                         >
-                            {Array(Math.floor(props.rating))
+                            {Array(Math.floor(rating))
                                 .fill()
                                 .map((_, i) => (
                                     <small key={i}>
