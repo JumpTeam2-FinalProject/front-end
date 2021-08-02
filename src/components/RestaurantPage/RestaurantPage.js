@@ -66,6 +66,7 @@ const RestaurantPage = (props) => {
                                 ) / reviews.length
                             }
                             className="mt-5"
+                            currentUser={props.currentUser}
                         />
                         <h1 className={classes.SubHeader}>Reviews</h1>
                         {reviews.map((review) => (
