@@ -8,6 +8,7 @@ const Restaurant = (props) => {
     const [averageReview, setAverageReview] = useState(0);
     const [reviewCount, setReviewCount] = useState(0);
 
+    
     useEffect(() => {
         averageRating();
     });
@@ -15,6 +16,7 @@ const Restaurant = (props) => {
     function averageRating() {
         var avg_review = 0;
         var review_count = 0;
+        if (!props.reviews) return;
 
         if (props.reviews !== undefined) {
             for (let i of props.reviews) {
