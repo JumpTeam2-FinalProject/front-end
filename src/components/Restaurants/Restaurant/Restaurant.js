@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Card, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
@@ -9,30 +10,35 @@ const Restaurant = (props) => {
 
     useEffect(() => {
         averageRating();
-    }, []);
-
-    // let length = props.reviews.length; //FIXME: change to show correct length
-    let length = 5;
+    });
 
     function averageRating() {
         var avg_review = 0;
         var review_count = 0;
 
-        for (let i of props.reviews) {
-            if (i !== undefined) {
-                console.log(i)
-                review_count = review_count + 1;
-                avg_review = avg_review + i.review.rating
+        if (props.reviews !== undefined) {
+            for (let i of props.reviews) {
+                if (i !== undefined) {
+                    review_count = review_count + 1;
+                    avg_review = avg_review + i.review.rating;
+                }
             }
+            avg_review = avg_review / props.reviews.length;
         }
-
-        avg_review = avg_review / props.reviews.length
 
         setReviewCount(review_count);
         setAverageReview(avg_review);
     }
 
-    const floorAverageReview = Math.floor(averageReview) || 0;
+
+    const history = useHistory();
+
+    function handleClick(e) {
+        e.preventDefault();
+        history.push(/restaurant/ + props.restaurant_id);
+    }
+
+    console.log(props);
 
     return (
         <Container>
@@ -46,7 +52,7 @@ const Restaurant = (props) => {
                                     display: "flex",
                                 }}
                             >
-                                {Array(floorAverageReview) //FIXME: change 2 to props.review
+                                {Array(Math.floor(averageReview)) //FIXME: change 2 to props.review
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>
@@ -54,7 +60,7 @@ const Restaurant = (props) => {
                                         </small>
                                     ))}
                                 <h6>
-                                    {(averageReview - floorAverageReview > 0.5)  ? (
+                                    {props.rating % 1 !== 0 ? (
                                         <TiStarHalfOutline />
                                     ) : null}
                                 </h6>
@@ -66,7 +72,7 @@ const Restaurant = (props) => {
                             <Button
                                 variant="success"
                                 className="btn-sm mb-2"
-                                onClick={props.clicked}
+                                onClick={handleClick}
                             >
                                 Visit page
                             </Button>

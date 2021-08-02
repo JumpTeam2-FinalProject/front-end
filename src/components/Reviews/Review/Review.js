@@ -3,11 +3,25 @@ import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
 const Review = (props) => {
-    const first =
-        props.firstName.charAt(0).toUpperCase() + props.firstName.slice(1);
-    const last =
-        props.lastName.charAt(0).toUpperCase() + props.lastName.slice(1);
-    const review = props.review.charAt(0).toUpperCase() + props.review.slice(1);
+
+    var first = null;
+    var last = null;
+    var review = null;
+    var rating = null;
+
+    if (props.clicked != null) {
+        first = props.firstName.charAt(0).toUpperCase() + props.firstName.slice(1);
+        last = props.lastName.charAt(0).toUpperCase() + props.lastName.slice(1);
+        review = props.date;
+        rating = props.rating;
+    }
+    else {
+        first = props.user.firstName.charAt(0).toUpperCase() + props.user.firstName.slice(1);
+        last = props.user.lastName.charAt(0).toUpperCase() + props.user.lastName.slice(1);
+        review = props.review.date;
+        rating = props.review.rating;
+    }
+
     return (
         <Container>
             <Row>
@@ -16,7 +30,7 @@ const Review = (props) => {
                         <span>
                             <p>
                                 {first} {last}&nbsp; - &nbsp;
-                                {props.date}
+                                {review}
                             </p>
                         </span>{" "}
                         <div
@@ -25,7 +39,7 @@ const Review = (props) => {
                                 marginBottom: "5px",
                             }}
                         >
-                            {Array(Math.floor(props.rating))
+                            {Array(Math.floor(rating))
                                 .fill()
                                 .map((_, i) => (
                                     <small key={i}>
@@ -44,7 +58,7 @@ const Review = (props) => {
                                 alignItems: "center",
                             }}
                         >
-                            <em>"{review}"</em> &nbsp; &nbsp;
+                            <em>"{props.review.review}"</em> &nbsp; &nbsp;
                         </span>
                     </Card.Header>
                     <Card.Body className="mb-0">
