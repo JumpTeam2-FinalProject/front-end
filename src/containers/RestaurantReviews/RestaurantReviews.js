@@ -10,8 +10,7 @@ import SignUp from "../../components/SignUp/SignUp";
 import Restaurants from "../../components/Restaurants/Restaurants";
 import RestaurantPage from "../../components/RestaurantPage/RestaurantPage";
 import { deleteToken, saveToken } from "../../utility/jwt";
-import { doFetch } from "../../utility/api";
-import { isJwtFailError, registerRedirectToLogin } from "../../utility";
+import { registerRedirectToLogin } from "../../utility";
 
 const RestaurantReviews = () => {
 
@@ -24,20 +23,15 @@ const RestaurantReviews = () => {
 
     const [currentUser, setCurrentUser] = useState(null);
 
-    const handleLogin = jwt => {
+    const handleLogin = ({ jwt, user }) => {
         saveToken(jwt);
-        doFetch('/api/user')
-            .then(response => response.json())
-            .then(setCurrentUser)
-            .then(goHome)
-            .catch(err => {
-                console.log("UNEXPECTED ERROR:\n> > ", err);
-                if (!isJwtFailError(err)) goToLogin();
-            });
+        setCurrentUser(user);
+        goHome();
     };
     const logout = () => {
         deleteToken();
         setCurrentUser(null);
+        goHome();
     };
 
     // the following 2 properties are passed as props to every component rendered by this page (both routes and layout)

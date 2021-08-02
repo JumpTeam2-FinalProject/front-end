@@ -20,7 +20,7 @@ const Login = ({ handleLogin }) => {
     const [username, setUsername] = useState("");
     const [isTouchedUsername, setIsTouchedUsername] = useState(false);
     const [password, setPassword] = useState("");
-    const [isTouchedPassword, setIsTouchedPassord] = useState("");
+    const [isTouchedPassword, setIsTouchedPassord] = useState(false);
     const [staySignedIn, setStaySignedIn] = useState(false);
     const [problemMessage, setProblemMessage] = useState(null);
 
@@ -36,18 +36,19 @@ const Login = ({ handleLogin }) => {
         doFetch(reqPath, 'POST', { username, password })
             .then(__response => {
                 response = __response;
+                console.log('response: \n  ', response);
                 return response.json();
             })
             .then(resData => {
+                console.log('resData:\n  ', resData);
                 if (response.ok && resData && resData.jwt) {
-                    handleLogin(resData.jwt);
+                    handleLogin(resData);
                     return;
                 }
                 setProblemMessage((resData && resData.message) || DEFAULT_PROBLEM_MESSAGE);
             })
             .catch(err => {
                 console.log(err);
-                if (isJwtFailError(err)) return;
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             });
     };
