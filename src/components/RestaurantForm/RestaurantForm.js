@@ -1,30 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Container, Form, Row, Col, Button } from "react-bootstrap";
 import classes from "./Account.module.css";
 
 const Res = () => {
-
     const [restaurants, setRestaurants] = useState([]);
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [description, setDescription] = useState("");
     const [cuisine, setCuisine] = useState("");
-    const [restaurantSelected, setRestaurantSelected] = useState([])
+    const [restaurantSelected, setRestaurantSelected] = useState([]);
 
     const getInputId = (inputName) => `review-form-${inputName}-input`;
-    
+
     const inputIds = {
-    restaurant: getInputId("restaurant"),
-    address: getInputId("address"),
-    description: getInputId("description"),
-    cuisine : getInputId("cuisine")
+        restaurant: getInputId("restaurant"),
+        address: getInputId("address"),
+        description: getInputId("description"),
+        cuisine: getInputId("cuisine"),
+    };
 
-};
-
-useEffect(() => {
-    fetchRestaurants();
-}, []);
-
+    useEffect(() => {
+        fetchRestaurants();
+    }, []);
 
     const fetchRestaurants = () => {
         doFetch("restaurants")
@@ -39,32 +36,29 @@ useEffect(() => {
 
     const changeHandlerFactory = (valueSetter) => (event) => {
         valueSetter(event.target.value);
-        
     };
-
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(restaurant)
-        const reqPath = '/api/restaurant/update/' + restaurant;
+        console.log(restaurant);
+        const reqPath = "/api/restaurant/update/" + restaurant;
         const reqBody = {
             restaurant: { restaurant },
             //rating: parseInt(rating),
-           // review: comment
+            // review: comment
         };
         let response;
-        doFetch(reqPath, 'PUT', reqBody, true)
-            .then(__response => {
+        doFetch(reqPath, "PUT", reqBody, true)
+            .then((__response) => {
                 response = __response;
                 return response.json();
             })
-            .then(resData => {
-                console.log(resData)
+            .then((resData) => {
+                console.log(resData);
                 if (response.ok) {
                     //setHasSuccess(true);
                     setRestaurant("");
-                   // setRating("");
+                    // setRating("");
                     //setComment("");
                     // setIsTouchedRestaurant(false);
                     // setIsTouchedComment(false);
@@ -74,16 +68,14 @@ useEffect(() => {
                 }
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err);
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             });
     };
 
-
-
     return (
-        <div >
+        <div>
             <br />
             <br />
             <Container>
@@ -98,29 +90,41 @@ useEffect(() => {
                             {/* TODO: Grab user data from db and apply updates/changes */}
                             <Form>
                                 <Row className="mb-3">
-                                <Form.Group>
-                                    <Form.Label htmlFor={inputIds.restaurant}>Restaurant</Form.Label>
-                                    <Form.Select
-                                        id={inputIds.restaurant}
-                                        aria-label="Select restaurant"
-                                        required
-                                        value={restaurant}
-                                        //isInvalid={isTouchedRestaurant && !restaurant}
-                                        onChange={changeHandlerFactory(setRestaurant)}
-                                    >
-                                        <option value="">
-                                            Select Restaurant
-                                        </option>
-                                        {restaurants.map(({ restaurant_id, text }) => (
-                                            <option value={restaurant_id} key={restaurant_id}>
-                                                {text}
+                                    <Form.Group>
+                                        <Form.Label
+                                            htmlFor={inputIds.restaurant}
+                                        >
+                                            Restaurant
+                                        </Form.Label>
+                                        <Form.Select
+                                            id={inputIds.restaurant}
+                                            aria-label="Select restaurant"
+                                            required
+                                            value={restaurant}
+                                            //isInvalid={isTouchedRestaurant && !restaurant}
+                                            onChange={changeHandlerFactory(
+                                                setRestaurant
+                                            )}
+                                        >
+                                            <option value="">
+                                                Select Restaurant
                                             </option>
-                                        ))}
-                                    </Form.Select>
-                                    <Form.Control.Feedback type="invalid">
-                                        Please select a restaurant to update.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                                            {restaurants.map(
+                                                ({ restaurant_id, text }) => (
+                                                    <option
+                                                        value={restaurant_id}
+                                                        key={restaurant_id}
+                                                    >
+                                                        {text}
+                                                    </option>
+                                                )
+                                            )}
+                                        </Form.Select>
+                                        <Form.Control.Feedback type="invalid">
+                                            Please select a restaurant to
+                                            update.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
 
                                     <Form.Group
                                         as={Col}

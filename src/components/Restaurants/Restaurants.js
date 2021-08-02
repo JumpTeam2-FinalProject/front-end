@@ -8,7 +8,6 @@ import { doFetch } from "../../utility";
 import Spinner from "../UI/Spinner/Spinner";
 
 const Restaurants = (props) => {
-
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
     let history = useHistory();
@@ -46,7 +45,6 @@ const Restaurants = (props) => {
                     <Spinner />
                 ) : (
                     restaurants.map((restaurantInfo) => (
-                        console.log(restaurantInfo),
                         <Restaurant
                             key={uuid()}
                             {...restaurantInfo}

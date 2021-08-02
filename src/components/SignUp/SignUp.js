@@ -8,7 +8,7 @@ import {
     Card,
     FloatingLabel,
 } from "react-bootstrap";
-import { doFetch, isJwtFailError } from "../../utility";
+import { doFetch } from "../../utility";
 import Alert from "../Alert/Alert";
 import classes from "./SignUp.module.css";
 

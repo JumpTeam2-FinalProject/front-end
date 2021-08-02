@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import {
-    Container,
-    Form,
-    Button,
-    Card,
-    FloatingLabel,
-    Col,
-    Row,
-} from "react-bootstrap";
+import { Container, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { isJwtFailError, doFetch } from "../../utility";
+import { doFetch } from "../../utility";
 import Alert from "../Alert/Alert";
 import classes from "./Login.module.css";
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Review from "./Review/Review";
-import { v4 as uuid } from "uuid";
 import Spinner from "../UI/Spinner/Spinner";
 import { doFetch } from "../../utility";
 import { useHistory } from "react-router";
