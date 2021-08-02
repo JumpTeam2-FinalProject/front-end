@@ -189,15 +189,8 @@ const ReviewForm = (props) => {
                                         rows={4}
                                         placeholder="Write your review here..."
                                         value={comment}
-<<<<<<< HEAD
-                                        onChange={changeHandlerFactory(
-                                            setComment,
-                                            setIsTouchedComment
-                                        )}
-=======
                                         isInvalid={isTouchedComment && !comment}
                                         onChange={changeHandlerFactory(setComment, setIsTouchedComment)}
->>>>>>> david/3
                                     />
                                 </Form.Group>
                                 <Button variant="outline-primary" type="submit">
