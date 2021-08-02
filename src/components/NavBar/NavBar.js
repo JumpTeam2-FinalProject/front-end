@@ -11,6 +11,10 @@ const NavBar = ({ currentUser, setCurrentUser, ...otherProps }) => {
                     <Navbar.Brand>
                         <div style={{ display: "flex", alignItems: "center" }}>
                             Restaurant Reviews &nbsp; <IoRestaurantOutline />
+                            <small>
+                                &nbsp; &nbsp; Hi,{" "}
+                                {currentUser ? currentUser.firstName : "Guest"}!
+                            </small>
                         </div>
                     </Navbar.Brand>
                 </LinkContainer>

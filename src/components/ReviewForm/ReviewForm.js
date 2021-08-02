@@ -12,7 +12,7 @@ const inputIds = {
     comment: getInputId("comment"),
 };
 
-const ReviewForm = (props) => {
+const ReviewForm = () => {
     const [restaurant, setRestaurant] = useState("");
     const [isTouchedRestaurant, setIsTouchedRestaurant] = useState(false);
     const [rating, setRating] = useState("");
@@ -27,32 +27,21 @@ const ReviewForm = (props) => {
         fetchRestaurants();
     }, []);
 
-    // const setRestaurantById = id => {
-    //     setRestaurant(parseInt(id));
-    //     for (const _restaurant of restaurants) {
-    //         if (_restaurant.restaurant_id.toString() === id.toString()) {
-    //             setRestaurant(_restaurant);
-    //         }
-    //     }
-    // };
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(restaurant)
-        const reqPath = '/reviews/' + restaurant;
+        const reqPath = "/reviews/" + restaurant;
         const reqBody = {
             restaurant: { ...restaurant, reviews: undefined },
             rating: parseInt(rating),
-            review: comment
+            review: comment,
         };
         let response;
-        doFetch(reqPath, 'POST', reqBody, true)
-            .then(__response => {
+        doFetch(reqPath, "POST", reqBody, true)
+            .then((__response) => {
                 response = __response;
                 return response.json();
             })
-            .then(resData => {
-                console.log(resData)
+            .then((resData) => {
                 if (response.ok) {
                     setHasSuccess(true);
                     setRestaurant("");
@@ -66,7 +55,7 @@ const ReviewForm = (props) => {
                 }
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err);
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
             });
@@ -102,7 +91,10 @@ const ReviewForm = (props) => {
                             {hasSuccess && (
                                 <Alert
                                     title="Review Posted"
-                                    messages={[ "Your review was posted successfully.", "Thank you for your feedback!"]}
+                                    messages={[
+                                        "Your review was posted successfully.",
+                                        "Thank you for your feedback!",
+                                    ]}
                                     dismiss={() => setHasSuccess(false)}
                                     isDismissed={!hasSuccess}
                                     theme="success"
@@ -111,7 +103,10 @@ const ReviewForm = (props) => {
                             {problemMessage && (
                                 <Alert
                                     title="Review could not be posted."
-                                    messages={[ problemMessage, "Please try again." ]}
+                                    messages={[
+                                        problemMessage,
+                                        "Please try again.",
+                                    ]}
                                     dismiss={() => setProblemMessage(null)}
                                     isDismissed={!problemMessage}
                                 />
@@ -137,11 +132,16 @@ const ReviewForm = (props) => {
                                         <option value="">
                                             Select Restaurant
                                         </option>
-                                        {restaurants.map(({ restaurant_id, text }) => (
-                                            <option value={restaurant_id} key={restaurant_id}>
-                                                {text}
-                                            </option>
-                                        ))}
+                                        {restaurants.map(
+                                            ({ restaurant_id, text }) => (
+                                                <option
+                                                    value={restaurant_id}
+                                                    key={restaurant_id}
+                                                >
+                                                    {text}
+                                                </option>
+                                            )
+                                        )}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
                                         Please select a restaurant to review.
@@ -190,7 +190,10 @@ const ReviewForm = (props) => {
                                         placeholder="Write your review here..."
                                         value={comment}
                                         isInvalid={isTouchedComment && !comment}
-                                        onChange={changeHandlerFactory(setComment, setIsTouchedComment)}
+                                        onChange={changeHandlerFactory(
+                                            setComment,
+                                            setIsTouchedComment
+                                        )}
                                     />
                                 </Form.Group>
                                 <Button variant="outline-primary" type="submit">
