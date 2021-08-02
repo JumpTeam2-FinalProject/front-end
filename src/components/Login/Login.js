@@ -36,11 +36,9 @@ const Login = ({ handleLogin }) => {
         doFetch(reqPath, 'POST', { username, password })
             .then(__response => {
                 response = __response;
-                console.log('response: \n  ', response);
                 return response.json();
             })
             .then(resData => {
-                console.log('resData:\n  ', resData);
                 if (response.ok && resData && resData.jwt) {
                     handleLogin(resData);
                     return;

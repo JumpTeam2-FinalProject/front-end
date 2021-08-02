@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import { useHistory } from "react-router";
 import classes from "./Restaurants.module.css";
+import { doFetch } from "../../utility";
 
 const Restaurants = (props) => {
     const [restaurants, setRestaurants] = useState([]);
@@ -18,7 +19,7 @@ const Restaurants = (props) => {
     };
 
     const fetchRestaurants = () => {
-        fetch("http://localhost:8080/api/restaurant")
+        doFetch("/api/restaurants")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);

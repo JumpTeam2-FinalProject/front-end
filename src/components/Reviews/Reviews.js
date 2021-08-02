@@ -9,16 +9,16 @@ const Reviews = (props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchReview();
+        fetchReviews();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const fetchReview = () => {
+    const fetchReviews = () => {
         fetch("http://localhost:8080/api/reviews")
             .then((response) => response.json())
-            .then((reviews) => {
-                setLoading(!loading);
-                shuffleArray(reviews);
-                setReviews(reviews);
+            .then(__reviews => {
+                setLoading(false);
+                shuffleArray(__reviews);
+                setReviews(__reviews);
             })
             .catch((err) => {
                 console.error(err);
@@ -32,6 +32,8 @@ const Reviews = (props) => {
         }
     };
 
+    console.log(reviews)
+
     return (
         <Container>
             <br />
@@ -42,7 +44,7 @@ const Reviews = (props) => {
                     .slice(0, 10)
                     .map(({ review, restaurant, user }) => (
                         <Review
-                            key={uuid()}
+                            key={review.review_id}
                             {...review}
                             {...restaurant}
                             {...user}
