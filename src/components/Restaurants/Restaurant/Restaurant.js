@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Card, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
+import Stars from "../../Stars/Stars";
 
 const Restaurant = (props) => {
     const [averageReview, setAverageReview] = useState(0);
@@ -23,6 +24,9 @@ const Restaurant = (props) => {
                     avg_review = avg_review + i.review.rating;
                 }
             }
+            // console.log('props.reviews > > > ',  props.reviews)
+            // console.log('average > > > ', avg_review)
+            // console.log('count > > >', review_count)
             avg_review = avg_review / props.reviews.length;
         }
 
@@ -44,24 +48,28 @@ const Restaurant = (props) => {
                     <Card.Body>
                         <Card.Title>
                             {props.text} &nbsp; &nbsp;
-                            <div
+                            <Stars value={averageReview} />
+                            {/* <div
                                 style={{
                                     display: "flex",
+                                    lineHeight: 1.2,
+                                    paddingBottom: "0.1em"
                                 }}
                             >
-                                {Array(Math.floor(averageReview))
+                                {Array(Math.floor(averageReview + 0.25)) // <- gets the floor of average rounded to the nearest half
                                     .fill()
                                     .map((_, i) => (
                                         <small key={i}>
                                             <TiStarFullOutline />
                                         </small>
                                     ))}
-                                <h6>
-                                    {props.rating % 1 !== 0 ? (
+                                <small>
+                                    { // Double rating. Round to nearest integer. If odd then include half star; if even do not include.
+                                    (Math.floor((averageReview * 2) + 0.5) % 2 === 1) && (
                                         <TiStarHalfOutline />
-                                    ) : null}
-                                </h6>
-                            </div>
+                                    )}
+                                </small>
+                            </div> */}
                             <h6>
                                 <strong>{reviewCount}</strong> reviews
                             </h6>
