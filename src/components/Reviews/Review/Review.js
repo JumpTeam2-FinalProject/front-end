@@ -2,6 +2,11 @@ import React from "react";
 import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
+const calculateHasHalfStar = rating => {
+    const roundedDoubledRating =  Math.floor((rating * 2) + 0.5);
+    return roundedDoubledRating % 2 !== 0;
+};
+
 const Review = (props) => {
     var first = null;
     var last = null;
@@ -51,11 +56,13 @@ const Review = (props) => {
                                     <small key={i}>
                                         <TiStarFullOutline />
                                     </small>
-                                ))}
+                                ))
+                            }
                             <small>
-                                {props.rating % 1 !== 0 ? (
+                                { // Double rating. Round to nearest integer. If odd then include half star; if even do not include.
+                                (Math.floor((rating * 2) + 0.5) % 2 === 1) && (
                                     <TiStarHalfOutline />
-                                ) : null}
+                                )}
                             </small>
                         </div>
                         <span

@@ -33,10 +33,10 @@ const Res = (props) => {
             .then((data) => {
                 console.log(data);
                 setIsLoading(false);
-                setText(data.text);
-                setAddress(data.address);
-                setDescription(data.description);
-                setCuisine(data.cuisine);
+                setText(data.text || "");
+                setAddress(data.address || "");
+                setDescription(data.description || "");
+                setCuisine(data.cuisine || "");
             })
             .catch((err) => {
                 console.error(err);
@@ -51,10 +51,10 @@ const Res = (props) => {
         event.preventDefault();
         const reqPath = "/restaurant/update/" + props.match.params.id;
         const reqBody = {
-            // restaurant_id: props.match.params.id,
             text,
             description,
-            address
+            address,
+            cuisine
         };
         console.log(reqBody)
         let response;
@@ -93,7 +93,7 @@ const Res = (props) => {
                             <br />
                             {hasSuccess && (
                                 <Alert
-                                    title="Review Posted"
+                                    title="Restaurant Saved"
                                     messages={[ "The restaurant was updated successfully."]}
                                     dismiss={() => setHasSuccess(false)}
                                     isDismissed={!hasSuccess}
