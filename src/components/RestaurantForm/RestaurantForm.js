@@ -23,25 +23,23 @@ const Res = (props) => {
     const [cuisine, setCuisine] = useState("");
     const [problemMessage, setProblemMessage] = useState(null);
 
-    useEffect(() => {
-        fetchRestaurant();
-    }, []);
+    const restaurantId = props.match.params.id;
 
-    const fetchRestaurant = () => {
-        doFetch("restaurant/" + props.match.params.id)
+    useEffect(() => {
+        doFetch("restaurant/" + restaurantId)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 setIsLoading(false);
-                setText(data.text);
-                setAddress(data.address);
-                setDescription(data.description);
-                setCuisine(data.cuisine);
+                setText(data.text || "");
+                setAddress(data.address || "");
+                setDescription(data.description || "");
+                setCuisine(data.cuisine || "");
             })
             .catch((err) => {
                 console.error(err);
             });
-    };
+    }, [restaurantId]); // does the fetch once initially and then once anytime restaurant id changes
 
     const changeHandlerFactory = (valueSetter) => (event) => {
         valueSetter(event.target.value);
@@ -51,10 +49,10 @@ const Res = (props) => {
         event.preventDefault();
         const reqPath = "/restaurant/update/" + props.match.params.id;
         const reqBody = {
-            // restaurant_id: props.match.params.id,
             text,
             description,
-            address
+            address,
+            cuisine
         };
         console.log(reqBody)
         let response;
@@ -93,7 +91,7 @@ const Res = (props) => {
                             <br />
                             {hasSuccess && (
                                 <Alert
-                                    title="Review Posted"
+                                    title="Restaurant Saved"
                                     messages={[ "The restaurant was updated successfully."]}
                                     dismiss={() => setHasSuccess(false)}
                                     isDismissed={!hasSuccess}

@@ -22,6 +22,7 @@ const RestaurantReviews = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const [currentUser, setCurrentUser] = useState(null);
+    const [reviewDraft, setReviewDraft] = useState(null);
 
     const handleLogin = ({ jwt, user }) => {
         saveToken(jwt);
@@ -29,19 +30,24 @@ const RestaurantReviews = () => {
         goHome();
     };
 
+    const setRestaurantToReviewId = restaurant => {
+        const isSameRestaurant = reviewDraft && (reviewDraft.restaurant === restaurant);
+        setReviewDraft(isSameRestaurant ? { ...reviewDraft, restaurant } : { restaurant });
+    };
+
     // the following 2 properties are passed as props to every component rendered by this page (both routes and layout)
     const accountRelatedProps = { currentUser, setCurrentUser };
 
     const routeRenderFactory =
-        (ComponentToRender, extraProps = {}) =>
-        (_props) =>
-            (
+        (ComponentToRender, extraProps = {}) => (
+            (_props) => (
                 <ComponentToRender
                     {..._props}
                     {...accountRelatedProps}
                     {...extraProps}
                 />
-            );
+            )
+        );
 
     let routes = (
         <Switch>
@@ -54,7 +60,7 @@ const RestaurantReviews = () => {
             <Route path="/account" render={routeRenderFactory(Account)} />
             <Route
                 path="/writereview"
-                render={routeRenderFactory(ReviewPage)}
+                render={routeRenderFactory(ReviewPage, { reviewDraft, setReviewDraft })}
             />
             <Route
                 path="/signup"
@@ -66,7 +72,7 @@ const RestaurantReviews = () => {
             />
             <Route
                 path="/restaurant/:id"
-                render={routeRenderFactory(RestaurantPage)}
+                render={routeRenderFactory(RestaurantPage, { setRestaurantToReviewId })}
             />
             <Route
                 path="/updaterestaurant/:id"

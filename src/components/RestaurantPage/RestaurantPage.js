@@ -15,11 +15,13 @@ const RestaurantPage = (props) => {
     const [reviews, setReviews] = useState([]);
     let history = useHistory();
 
+    const { setRestaurantToReviewId } = props;
+
     useEffect(() => {
-        fetchRestaurants();
+        fetchRestaurant();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const fetchRestaurants = () => {
+    const fetchRestaurant = () => {
         doFetch("restaurant/" + props.match.params.id)
             .then((response) => response.json())
             .then((data) => {
@@ -33,6 +35,7 @@ const RestaurantPage = (props) => {
     };
 
     const sendToReviewForm = () => {
+        setRestaurantToReviewId(restaurant.restaurant_id);
         history.push("/writereview");
     };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Card, Button } from "react-bootstrap";
-import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
+import Stars from "../../Stars/Stars";
 
 const Restaurant = (props) => {
     const [averageReview, setAverageReview] = useState(0);
@@ -34,7 +34,7 @@ const Restaurant = (props) => {
 
     function handleClick(e) {
         e.preventDefault();
-        history.push(/restaurant/ + props.restaurant_id);
+        history.push("/restaurant/" + props.restaurant_id);
     }
 
     return (
@@ -44,24 +44,7 @@ const Restaurant = (props) => {
                     <Card.Body>
                         <Card.Title>
                             {props.text} &nbsp; &nbsp;
-                            <div
-                                style={{
-                                    display: "flex",
-                                }}
-                            >
-                                {Array(Math.floor(averageReview))
-                                    .fill()
-                                    .map((_, i) => (
-                                        <small key={i}>
-                                            <TiStarFullOutline />
-                                        </small>
-                                    ))}
-                                <h6>
-                                    {props.rating % 1 !== 0 ? (
-                                        <TiStarHalfOutline />
-                                    ) : null}
-                                </h6>
-                            </div>
+                            <Stars value={averageReview} />
                             <h6>
                                 <strong>{reviewCount}</strong> reviews
                             </h6>

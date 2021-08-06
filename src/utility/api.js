@@ -6,6 +6,7 @@ import { jwtAuthFailCatcherFactory } from "./redirectToLogin";
 > > > */
 const apiBaseUrl =
     "http://ec2-3-133-145-247.us-east-2.compute.amazonaws.com:8080/api";
+    // "http://localhost:8080/api"
 /********************************************/
 
 const buildUrl = (routePath) => {

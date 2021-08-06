@@ -12,12 +12,12 @@ const inputIds = {
     comment: getInputId("comment"),
 };
 
-const ReviewForm = () => {
-    const [restaurant, setRestaurant] = useState("");
+const ReviewForm = ({ reviewDraft, setReviewDraft }) => {
+    const [restaurant, setRestaurant] = useState((reviewDraft && reviewDraft.restaurant) || "");
     const [isTouchedRestaurant, setIsTouchedRestaurant] = useState(false);
-    const [rating, setRating] = useState("");
+    const [rating, setRating] = useState((reviewDraft && reviewDraft.rating) || "");
     const [isTouchedRating, setIsTouchedRating] = useState(false);
-    const [comment, setComment] = useState("");
+    const [comment, setComment] = useState((reviewDraft && reviewDraft.comment) || "");
     const [isTouchedComment, setIsTouchedComment] = useState(false);
     const [problemMessage, setProblemMessage] = useState(null);
     const [restaurants, setRestaurants] = useState([]);
@@ -26,6 +26,10 @@ const ReviewForm = () => {
     useEffect(() => {
         fetchRestaurants();
     }, []);
+
+    useEffect(() => { // lift input states on change so it's preserved if navigating away from review form without submitting form
+        setReviewDraft({ restaurant, rating, comment });
+    }, [restaurant, rating, comment, setReviewDraft]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -51,6 +55,7 @@ const ReviewForm = () => {
                     setIsTouchedComment(false);
                     setIsTouchedRating(false);
                     setProblemMessage(null);
+                    // setReviewDraft(null);
                     return;
                 }
                 setProblemMessage(DEFAULT_PROBLEM_MESSAGE);
