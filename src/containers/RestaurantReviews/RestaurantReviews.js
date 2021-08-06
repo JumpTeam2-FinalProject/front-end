@@ -11,18 +11,30 @@ import Restaurants from "../../components/Restaurants/Restaurants";
 import RestaurantPage from "../../components/RestaurantPage/RestaurantPage";
 import RestaurantForm from "../../components/RestaurantForm/RestaurantForm";
 import { saveToken } from "../../utility/jwt";
-import { registerRedirectToLogin } from "../../utility";
+import { doFetch, registerRedirectToLogin } from "../../utility";
 
 const RestaurantReviews = () => {
     const history = useHistory();
-    const goToLogin = () => history.push("/login");
     const goHome = () => history.push("/");
     useEffect(() => {
-        registerRedirectToLogin(goToLogin);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+        registerRedirectToLogin(() => history.push("/login"));
+    }, [history]);
+    
     const [currentUser, setCurrentUser] = useState(null);
     const [reviewDraft, setReviewDraft] = useState(null);
+    
+    useEffect(() => {
+        doFetch("/user", "GET", undefined, true)
+            .then(response => response.json())
+            .then(resData => {
+                if (resData && resData.username) {
+                    setCurrentUser(resData);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }, []);
 
     const handleLogin = ({ jwt, user }) => {
         saveToken(jwt);
