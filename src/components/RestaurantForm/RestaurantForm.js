@@ -23,12 +23,10 @@ const Res = (props) => {
     const [cuisine, setCuisine] = useState("");
     const [problemMessage, setProblemMessage] = useState(null);
 
-    useEffect(() => {
-        fetchRestaurant();
-    }, []);
+    const restaurantId = props.match.params.id;
 
-    const fetchRestaurant = () => {
-        doFetch("restaurant/" + props.match.params.id)
+    useEffect(() => {
+        doFetch("restaurant/" + restaurantId)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -41,7 +39,7 @@ const Res = (props) => {
             .catch((err) => {
                 console.error(err);
             });
-    };
+    }, [restaurantId]); // does the fetch once initially and then once anytime restaurant id changes
 
     const changeHandlerFactory = (valueSetter) => (event) => {
         valueSetter(event.target.value);

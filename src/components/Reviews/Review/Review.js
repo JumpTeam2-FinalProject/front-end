@@ -2,11 +2,6 @@ import React from "react";
 import { Card, Container, Row, Button } from "react-bootstrap";
 import { TiStarFullOutline, TiStarHalfOutline } from "react-icons/ti";
 
-const calculateHasHalfStar = rating => {
-    const roundedDoubledRating =  Math.floor((rating * 2) + 0.5);
-    return roundedDoubledRating % 2 !== 0;
-};
-
 const Review = (props) => {
     var first = null;
     var last = null;
