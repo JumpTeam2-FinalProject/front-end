@@ -5,8 +5,8 @@ import { jwtAuthFailCatcherFactory } from "./redirectToLogin";
 * NEEDS UPDATED EVERY TIME THE API URL CHANGES!!!
 > > > */
 const apiBaseUrl =
-    // "http://ec2-3-133-145-247.us-east-2.compute.amazonaws.com:8080/api";
-    "http://localhost:8080/api"
+    "http://ec2-3-133-145-247.us-east-2.compute.amazonaws.com:8080/api";
+    // "http://localhost:8080/api"
 /********************************************/
 
 const buildUrl = (routePath) => {
