@@ -2,15 +2,18 @@ let redirectToLogin;
 
 const registerRedirectToLogin = __redirectToLogin => redirectToLogin = __redirectToLogin;
 
-const jwtAuthFailCatcherFactory = doesRequireAuth => (
+const jwtAuthFailCatcherFactory = (doesRequireAuth, shouldRedirectOnFail = true) => (
   response => {
     if (
       doesRequireAuth &&
       (response.status === 401 || response.status === 403) &&
       redirectToLogin
     ) {
-      redirectToLogin();
-      const err = new Error("Unauthorized request. User must be authenticated");
+      console.log("User is not authenticated.");
+      if (shouldRedirectOnFail) redirectToLogin();
+      const err = new Error(
+        `Unauthorized request. User ${shouldRedirectOnFail ? "must be" : "is not"} authenticated.`
+      );
       err.isAuthFail = true;
       throw err;
     }

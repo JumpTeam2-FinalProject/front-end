@@ -24,7 +24,7 @@ const RestaurantReviews = () => {
     const [reviewDraft, setReviewDraft] = useState(null);
     
     useEffect(() => {
-        doFetch("/user", "GET", undefined, true)
+        doFetch("/user", "GET", undefined, true, true)
             .then(response => response.json())
             .then(resData => {
                 if (resData && resData.username) {
