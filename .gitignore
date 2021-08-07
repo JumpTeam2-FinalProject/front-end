@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# file in root of repo named `.env` exactly. Contains any personal information. Formatted the same as an `application.properties` in spring.
+.env
+
 # dependencies
 /node_modules
 /.pnp

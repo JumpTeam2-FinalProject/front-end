@@ -2,8 +2,19 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { IoRestaurantOutline } from "react-icons/io5";
+import { deleteToken } from "../../utility";
+import { useHistory } from "react-router-dom";
 
 const NavBar = ({ currentUser, setCurrentUser, ...otherProps }) => {
+    
+    const history = useHistory();
+
+    const logout = () => {
+        deleteToken();
+        setCurrentUser(null);
+        history.push("/");
+    };
+
     return (
         <Navbar bg="light" variant="light">
             <Container>
@@ -36,6 +47,10 @@ const NavBar = ({ currentUser, setCurrentUser, ...otherProps }) => {
                             <LinkContainer to="/account">
                                 <Nav.Link>Account</Nav.Link>
                             </LinkContainer>
+                            <span className="nav-link" onClick={logout} style={{ cursor: "pointer" }}>
+                                Logout
+                                {/* <Nav.Item>Logout</Nav.Item> */}
+                            </span>
                         </>
                     ) : (
                         <>
